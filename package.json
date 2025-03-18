@@ -1,5 +1,5 @@
 {
-    "name": "DomCraft",
+    "name": "dom_craft",
     "version": "1.0.0",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
     "main": "domCraft.js",
