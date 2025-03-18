@@ -1,12 +1,13 @@
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-    input: 'dom-builder.js',
+    input: 'pureDOM.js',
     output: {
-        file: 'dist/vanilladom-builder.umd.js',
+        file: 'dist/pureDOM.umd.js',
         format: 'umd',
-        name: 'VanillaDOM',
+        name: 'PureDom',
         sourcemap: true,
+        intro: 'const Dom = PureDom.Dom;',
     },
     plugins: [
         terser({

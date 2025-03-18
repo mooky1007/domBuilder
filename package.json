@@ -1,10 +1,10 @@
 {
-    "name": "vanilladom-builder",
-    "version": "1.0.8",
+    "name": "PureDOM",
+    "version": "1.0.0",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
-    "main": "dom-builder.js",
-    "module": "dom-builder.js",
-    "types": "dom-builder.d.ts",
+    "main": "pureDOM.js",
+    "module": "pureDOM.js",
+    "types": "pureDOM.d.ts",
     "scripts": {
         "clean": "rimraf dist",
         "build": "npm run clean && rollup -c",
