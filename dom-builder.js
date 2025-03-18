@@ -79,71 +79,71 @@ export class Element {
     }
 }
 
-const dom = new Dom();
+// const dom = new Dom();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createStepBox = (idx, text) => {
-        const div = Dom.div.set({
-            style: {
-                display: 'inline-flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                border: '1px solid #ddd',
-                padding: '5px',
-                gap: '5px',
-                width: '100%',
-                maxWidth: '200px',
-            },
-            on: {
-                click: function () {
-                    alert(`Step0${idx}: ${text}`);
-                },
-            },
-            nested: [
-                Dom.span.set({
-                    text: `Step0${idx}`,
-                    style: { color: '#fff', fontSize: '11px' },
-                }),
-                Dom.p.set({
-                    text: text,
-                    classes: 'step_text',
-                    style: { color: '#fff', fontSize: '15px', fontWeight: 700 },
-                    nested: [
-                        Dom.div.set({
-                            style: {
-                                display: 'flex',
-                                gap: '5px',
-                                marginTop: '10px',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            },
-                            nested: [
-                                Dom.span.set({
-                                    text: '🤔',
-                                    classes: 'emoji, step_text_emoji1',
-                                }),
-                                Dom.span.set({
-                                    text: '🥺',
-                                    classes: 'emoji, step_text_emoji2',
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-            ],
-        });
+// document.addEventListener('DOMContentLoaded', () => {
+//     const createStepBox = (idx, text) => {
+//         const div = Dom.div.set({
+//             style: {
+//                 display: 'inline-flex',
+//                 flexDirection: 'column',
+//                 alignItems: 'center',
+//                 border: '1px solid #ddd',
+//                 padding: '5px',
+//                 gap: '5px',
+//                 width: '100%',
+//                 maxWidth: '200px',
+//             },
+//             on: {
+//                 click: function () {
+//                     alert(`Step0${idx}: ${text}`);
+//                 },
+//             },
+//             nested: [
+//                 Dom.span.set({
+//                     text: `Step0${idx}`,
+//                     style: { color: '#fff', fontSize: '11px' },
+//                 }),
+//                 Dom.p.set({
+//                     text: text,
+//                     classes: 'step_text',
+//                     style: { color: '#fff', fontSize: '15px', fontWeight: 700 },
+//                     nested: [
+//                         Dom.div.set({
+//                             style: {
+//                                 display: 'flex',
+//                                 gap: '5px',
+//                                 marginTop: '10px',
+//                                 justifyContent: 'center',
+//                                 alignItems: 'center',
+//                             },
+//                             nested: [
+//                                 Dom.span.set({
+//                                     text: '🤔',
+//                                     classes: 'emoji, step_text_emoji1',
+//                                 }),
+//                                 Dom.span.set({
+//                                     text: '🥺',
+//                                     classes: 'emoji, step_text_emoji2',
+//                                 }),
+//                             ],
+//                         }),
+//                     ],
+//                 }),
+//             ],
+//         });
 
-        return div;
-    };
+//         return div;
+//     };
 
-    Dom.body.set({
-        nested: [createStepBox(1, 'Make Relationship'), createStepBox(2, 'Make Friendship'), createStepBox(3, 'Make Love')],
-        style: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            gap: '10px',
-        },
-    });
-});
+//     Dom.body.set({
+//         nested: [createStepBox(1, 'Make Relationship'), createStepBox(2, 'Make Friendship'), createStepBox(3, 'Make Love')],
+//         style: {
+//             display: 'flex',
+//             justifyContent: 'center',
+//             alignItems: 'center',
+//             height: '100vh',
+//             gap: '10px',
+//         },
+//     });
+// });
