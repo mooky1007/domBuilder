@@ -1,10 +1,10 @@
 {
-    "name": "PureDOM",
+    "name": "DomCraft",
     "version": "1.0.0",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
-    "main": "pureDOM.js",
-    "module": "pureDOM.js",
-    "types": "pureDOM.d.ts",
+    "main": "domCraft.js",
+    "module": "domCraft.js",
+    "types": "domCraft.d.ts",
     "scripts": {
         "clean": "rimraf dist",
         "build": "npm run clean && rollup -c",
