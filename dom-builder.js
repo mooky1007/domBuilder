@@ -1,4 +1,5 @@
 export class Dom {
+    constructor() {}
     qs(selector) {
         return document.querySelector(selector);
     }
@@ -24,6 +25,7 @@ export class Dom {
 
 export class Element {
     constructor(el) {
+        this.el = {};
         if (typeof el === 'string') {
             this.el = document.createElement(el);
         } else {

@@ -8,5 +8,14 @@ export default {
         name: 'VanillaDOM',
         sourcemap: true,
     },
-    plugins: [terser()],
+    plugins: [
+        terser({
+            format: {
+                comments: false,
+            },
+            compress: {
+                drop_console: false,
+            },
+        }),
+    ],
 };
