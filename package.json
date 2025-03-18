@@ -1,0 +1,31 @@
+{
+  "name": "vanilladom-builder",
+  "version": "1.0.0",
+  "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
+  "main": "dom-builder.js",
+  "module": "dom-builder.js",
+  "types": "dom-builder.d.ts",
+  "scripts": {
+    "build": "echo 'No build step needed; pure ES module'",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "dom",
+    "builder",
+    "vanilla-js",
+    "lightweight",
+    "declarative",
+    "ui",
+    "framework"
+  ],
+  "author": "mooky1007",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YourUsername/vanilladom-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YourUsername/vanilladom-builder/issues"
+  },
+  "homepage": "https://github.com/YourUsername/vanilladom-builder#readme"
+}
