@@ -6,8 +6,12 @@
     "module": "dom-builder.js",
     "types": "dom-builder.d.ts",
     "scripts": {
-        "build": "echo 'No build step needed; pure ES module'",
-        "prepublishOnly": "npm run build"
+        "clean": "rimraf dist",
+        "build": "npm run clean && rollup -c",
+        "version:patch": "npm version patch && npm run build && npm publish --access public",
+        "version:minor": "npm version minor && npm run build && npm publish --access public",
+        "version:major": "npm version major && npm run build && npm publish --access public",
+        "deploy": "git add . && git commit -m 'release' && git push && npm run version:patch"
     },
     "keywords": [
         "dom",
@@ -27,5 +31,10 @@
     "bugs": {
         "url": "https://github.com/mooky1007/vanilladom-builder/issues"
     },
-    "homepage": "https://github.com/mooky1007/vanilladom-builder#readme"
+    "homepage": "https://github.com/mooky1007/vanilladom-builder#readme",
+    "devDependencies": {
+        "rimraf": "^6.0.1",
+        "rollup": "^2.79.2",
+        "rollup-plugin-terser": "^7.0.2"
+    }
 }
