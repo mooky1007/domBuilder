@@ -1,6 +1,6 @@
 {
     "name": "vanilladom-builder",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
     "main": "dom-builder.js",
     "module": "dom-builder.js",
