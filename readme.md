@@ -1,98 +1,92 @@
-# DomCraft
+# 📖 dom_craft - Lightweight Declarative DOM Builder
 
-> A lightweight, fluent, chainable DOM builder for vanilla JavaScript.
+![npm version](https://img.shields.io/npm/v/dom_craft.svg)
+![license](https://img.shields.io/npm/l/dom_craft.svg)
+![size](https://img.shields.io/bundlephobia/minzip/dom_craft)
+
+> ✨ A lightweight, declarative UI builder with native animations for Vanilla JavaScript.
+> 
+> Build DOM elements, attach styles, add animations, and handle transitions — all in a clean, chainable API.
+
+---
 
 ## 🚀 Features
-
--   Easy-to-use, fluent API
--   Supports `Dom.div`, `Dom.body`, `Dom.ce('tag')` and more
--   Declarative setup for styles, classes, events, attributes, and nested elements
--   Available via CDN or npm
+- Ultra-lightweight (less than 5KB gzipped)
+- Fully declarative DOM creation
+- Supports `introAnimation` & `outroAnimation` for smooth transitions
+- Built-in `destroy()`, `replaceChildren()`, `addChildren()` helpers
+- `ref` function for dynamic element capture
+- Inline `on()` event bindings with `animationEnd` hooks
+- Dynamic CSS injection via `Dom.injectCss()`
+- Built-in `Dom.delay()` Promise-based timeout utility
+- Supports ESM, UMD, and automatic CDN usage
 
 ---
 
 ## 📦 Installation
-
-### ✅ Install via NPM
-
 ```bash
-npm i dom_craft
+npm install dom_craft
 ```
 
-> For module-based environments (Vite, Webpack, ESModules)
-
-### ✅ Use via CDN
-
+Or use via CDN:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.js"></script>
 ```
-
-> The `Dom` object will be globally available immediately.
 
 ---
 
-## 🛠 Usage Examples
-
-### ✅ Browser (CDN) Example
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.js"></script>
-<script>
-    Dom.body.set({
-        children: [
-            Dom.div.set({
-                text: 'Hello, DomCraft!',
-                style: {
-                    padding: '20px',
-                    backgroundColor: '#333',
-                    color: '#fff',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                },
-                on: {
-                    click: function () {
-                        alert('Box clicked!');
-                    },
-                },
-            }),
-        ],
-    });
-</script>
-```
-
-### ✅ Import Example (module-based)
-
+## 🛠 Basic Usage Example
 ```js
-import DomCraft from 'dom_craft';
+import { Dom } from 'dom_craft';
 
-DomCraft.Dom.body.set({
-    children: [
-        DomCraft.Dom.div.set({
-            text: 'Hello from import!',
-            style: { color: 'blue', fontSize: '20px' },
-        }),
-    ],
+Dom.injectCss(`
+  body { background: #fafafa; width: 100vw; height: 100vh; position: relative;}
+  .card { position:absolute; top:50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: white; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+`);
+
+const fadeIn = {
+  keyframe: [
+    { opacity: 0, transform: 'translate(-50%, -50%) scale(3)' }, 
+    { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
+  ],
+  options: { duration: 750, fill: 'both' }
+};
+
+const card = Dom.div.set({
+  class: 'card',
+  introAnimation: fadeIn,
+  children: [
+    Dom.h1.set('Hello, DomCraft!'),
+    Dom.p.set('Lightweight, declarative, animated DOM builder.')
+  ]
 });
+
+Dom.body.set({ children: [card] });
 ```
 
 ---
-
-## ✏️ Main API
-
-| Method / Property | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| `Dom.div`         | Creates a `<div>` element and returns an ElementBuilder |
-| `Dom.span`        | Creates a `<span>` element                              |
-| `Dom.p`           | Creates a `<p>` element                                 |
-| `Dom.body`        | Returns a wrapper for the `<body>` element              |
-| `Dom.el('tag')`   | Creates a custom tag element                            |
-
-| ElementBuilder Methods | Description                                            |
-| ---------------------- | ------------------------------------------------------ |
-| `.set({...})`          | Set text, style, classes, attributes, events, children |
+<!-- 
+## 🔗 Documentation & Demo
+- [📚 Full Documentation](#) *(작성 후 링크 연결)*
+- [🎮 Live Demo](#) *(배포 후 GitHub Pages 링크 추가)*
 
 ---
 
-## 📝 License
+## 🛠 Development / Build
+```bash
+npm run build
+```
 
-MIT
+### Build outputs:
+| Format  | Path                               |
+|---------|------------------------------------|
+| UMD     | dist/dom_craft.umd.js             |
+| ESM     | dist/dom_craft.esm.js             |
+| Types   | dist/dom_craft.d.ts               |
+
+--- -->
+
+## 📜 License
+MIT License © 2024 [mooky1007]
+
+---

@@ -1,6 +1,6 @@
 {
     "name": "dom_craft",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
     "main": "domCraft.js",
     "module": "domCraft.js",

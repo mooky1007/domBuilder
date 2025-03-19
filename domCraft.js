@@ -52,6 +52,11 @@ export class Dom {
     static get div() {
         return new Element('div');
     }
+
+    static get img() {
+        return new Element('img');
+    }
+
     static get section() {
         return new Element('section');
     }
@@ -69,6 +74,15 @@ export class Dom {
     }
     static get ul() {
         return new Element('ul');
+    }
+    static get button() {
+        return new Element('button');
+    }
+    static get input() {
+        return new Element('input');
+    }
+    static get form() {
+        return new Element('form');
     }
     static get li() {
         return new Element('li');
@@ -107,6 +121,8 @@ export class Element {
             if ('attr' in config) this.attr(config.attr);
             if ('dataset' in config) this.dataset(config.dataset);
             if ('href' in config) this.href(config.href);
+            if ('src' in config) this.src(config.src);
+            if ('type' in config) this.type(config.src);
             if ('id' in config) this.id(config.id);
             if ('class' in config) this.class(config.class);
             if ('ref' in config && typeof config.ref === 'function') config.ref(this);
@@ -130,6 +146,11 @@ export class Element {
 
     html(value) {
         this.el.innerHTML = value;
+        return this.el;
+    }
+
+    src(value) {
+        this.el.src = value;
         return this.el;
     }
 
