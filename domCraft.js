@@ -1,7 +1,7 @@
 export class Dom {
     constructor() {}
     static qs(selector) {
-        return document.querySelector(selector);
+        return new Element(document.querySelector(selector));
     }
     static qsa(selector) {
         return document.querySelectorAll(selector);
@@ -115,21 +115,61 @@ export class Element {
         if (typeof config === 'string') {
             this.text(config);
         } else {
-            if ('text' in config) this.text(config.text);
-            if ('html' in config) this.html(config.html);
-            if ('style' in config) this.style(config.style);
-            if ('attr' in config) this.attr(config.attr);
-            if ('dataset' in config) this.dataset(config.dataset);
-            if ('href' in config) this.href(config.href);
-            if ('src' in config) this.src(config.src);
-            if ('type' in config) this.type(config.src);
-            if ('id' in config) this.id(config.id);
-            if ('class' in config) this.class(config.class);
-            if ('ref' in config && typeof config.ref === 'function') config.ref(this);
-            if ('children' in config) this.children(config.children);
-            if ('on' in config) this.on(config.on);
-            if ('introAnimation' in config) this.introAnimation = config.introAnimation;
-            if ('outroAnimation' in config) this.outroAnimation = config.outroAnimation;
+            Object.entries(config).forEach(([key, value]) => {
+                switch (key) {
+                    case 'text':
+                        this.text(value);
+                        break;
+                    case 'html':
+                        this.html(value);
+                        break;
+                    case 'style':
+                        this.style(value);
+                        break;
+                    case 'attr':
+                        this.attr(value);
+                        break;
+                    case 'dataset':
+                        this.dataset(value);
+                        break;
+                    case 'href':
+                        this.href(value);
+                        break;
+                    case 'src':
+                        this.src(value);
+                        break;
+                    case 'type':
+                        this.type(value);
+                        break;
+                    case 'placeholder':
+                        this.placeholder(value);
+                        break;
+                    case 'id':
+                        this.id(value);
+                        break;
+                    case 'class':
+                        this.class(value);
+                        break;
+                    case 'ref':
+                        value(this);
+                        break;
+                    case 'children':
+                        this.children(value);
+                        break;
+                    case 'on':
+                        this.on(value);
+                        break;
+                    case 'introAnimation':
+                        this.introAnimation = value;
+                        break;
+                    case 'outroAnimation':
+                        this.outroAnimation = value;
+                        break;
+                    default:
+                        this[key] = value;
+                        break;
+                }
+            });
         }
 
         return this.el;
@@ -146,6 +186,16 @@ export class Element {
 
     html(value) {
         this.el.innerHTML = value;
+        return this.el;
+    }
+
+    placeholder(placeholder) {
+        this.el.placeholder = placeholder;
+        return this.el;
+    }
+
+    type(type) {
+        this.el.type = type;
         return this.el;
     }
 
@@ -209,12 +259,22 @@ export class Element {
 
     children(children) {
         children.forEach(async (el) => {
-            if (el.newEl.introAnimation) {
-                const { keyframe, options } = el.newEl.introAnimation;
-                this.el.append(el);
-                await el.animate(keyframe, options).finished;
+            if (el instanceof Element) {
+                if (el.introAnimation) {
+                    const { keyframe, options } = el.introAnimation;
+                    this.el.append(el.el);
+                    await el.el.animate(keyframe, options).finished;
+                } else {
+                    this.el.append(el.el);
+                }
             } else {
-                this.el.append(el);
+                if (el.newEl.introAnimation) {
+                    const { keyframe, options } = el.newEl.introAnimation;
+                    this.el.append(el);
+                    await el.animate(keyframe, options).finished;
+                } else {
+                    this.el.append(el);
+                }
             }
         });
         return this.el;

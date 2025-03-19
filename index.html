@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./dist/dom_craft.umd.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    const ROOT = Dom.div.set({
+      id: 'root',
+      style: {
+        width: '100vw',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }
+    })
+
+    const Todo = (titleText) => {
+      const
+        TodoContainer = Dom.div,
+        TodoTitle = Dom.h1,
+        TodoForm = Dom.form,
+        TodoInput = Dom.input,
+        TodoList = Dom.ul,
+        TodoAddButton = Dom.button,
+        TodoCount = Dom.span,
+        TodoItem = (config) => {
+          const item = Dom.li;
+          item.style({
+            marginLeft: '20px',
+            fontSize: '12px',
+          })
+          item.set(config);
+          return item;
+        };
+
+      TodoContainer.set({
+        style: {
+          width: 'auto',
+          height: 'auto',
+          padding: '30px',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+          display: 'flex',
+          flexDirection: 'column'
+        }
+      })
+      TodoTitle.set({
+        text: titleText || 'Todo',
+        style: {
+          fontSize: '18px'
+        }
+      })
+      TodoList.set({
+        count: 0,
+        style: {
+          margin: '10px 0',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '5px'
+        }
+      })
+      TodoAddButton.set({
+        type: 'submit',
+        text: 'Add ',
+        style: {
+          padding: '0 5px',
+          borderRadius: '5px',
+          border: 'none',
+          background: '#333',
+          color: '#fff',
+          fontSize: '12px'
+        },
+      })
+      TodoCount.set({
+        update: () => TodoCount.text(`#${TodoList.count + 1}`)
+      })
+      TodoInput.set({
+        type: 'text',
+        style: {
+          padding: '5px 10px',
+          border: '1px solid #aaa',
+          borderRadius: '5px'
+        },
+        placeholder: 'write todo list',
+      });
+      TodoForm.set({
+        style: {
+          display: 'flex',
+          gap: '5px',
+          marginTop: 'auto'
+        },
+        on: {
+          submit: function(e) {
+            e.preventDefault();
+            if (TodoInput.el.value !== '') {
+              TodoList.addChildren(
+                TodoItem(TodoInput.el.value)
+              )
+              TodoList.count += 1;
+              TodoCount.update();
+              TodoInput.el.value = '';
+            }
+          }
+        }
+      })
+
+      TodoContainer.children([
+        TodoTitle,
+        TodoList,
+        TodoForm.children([
+          TodoInput,
+          TodoAddButton.children([
+            TodoCount.set(`#${TodoList.count + 1}`)
+          ])
+        ])
+      ])
+      return TodoContainer;
+    }
+
+    ROOT.replaceChildren(Dom.div.set({
+      style: {
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'center',
+        gap: '30px',
+        flexWrap: 'wrap'
+      },
+      children: [Todo('My Todo'), Todo('Your Todo'), Todo('Sub Todo'), , Todo('Sub Todo2')]
+    }));
+    Dom.body.el.prepend(ROOT);
+  </script>
+</body>
+
+</html>
