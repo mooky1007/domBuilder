@@ -6,8 +6,8 @@ export class Dom {
     qsa(selector) {
         return document.querySelectorAll(selector);
     }
-    ce(tagName) {
-        return document.createElement(tagName);
+    static el(tagName) {
+        return new Element(document.createElement(tagName));
     }
     static get body() {
         return new Element(document.querySelector('body'));
@@ -18,14 +18,55 @@ export class Dom {
     static get p() {
         return new Element('p');
     }
+    static get h1() {
+        return new Element('h1');
+    }
+    static get h2() {
+        return new Element('h2');
+    }
+    static get h3() {
+        return new Element('h3');
+    }
+    static get h4() {
+        return new Element('h4');
+    }
+    static get h5() {
+        return new Element('h5');
+    }
+    static get h6() {
+        return new Element('h6');
+    }
     static get div() {
         return new Element('div');
+    }
+    static get section() {
+        return new Element('section');
+    }
+    static get article() {
+        return new Element('article');
+    }
+    static get header() {
+        return new Element('header');
+    }
+    static get footer() {
+        return new Element('footer');
+    }
+    static get main() {
+        return new Element('main');
+    }
+    static get ul() {
+        return new Element('ul');
+    }
+    static get li() {
+        return new Element('li');
+    }
+    static get a() {
+        return new Element('a');
     }
 }
 
 export class Element {
     constructor(el) {
-        this.el = {};
         if (typeof el === 'string') {
             this.el = document.createElement(el);
         } else {
@@ -43,6 +84,10 @@ export class Element {
             this.el.textContent = config.text;
         }
 
+        if ('html' in config) {
+            this.el.innerHTML = config.html;
+        }
+
         if ('style' in config) {
             Object.keys(config.style).forEach((styleKey) => {
                 this.el.style[styleKey] = config.style[styleKey];
@@ -55,8 +100,8 @@ export class Element {
             });
         }
 
-        if ('nested' in config) {
-            config.nested.forEach((el) => {
+        if ('children' in config) {
+            config.children.forEach((el) => {
                 this.el.append(el);
             });
         }
@@ -77,75 +122,13 @@ export class Element {
             }
         }
 
+        if ('animations' in config) {
+            Object.keys(config.animations).forEach((animationKey) => {
+                const [keyframe, options] = config.animations[animationKey];
+                this.el.animate(keyframe, options);
+            });
+        }
+
         return this.el;
     }
 }
-
-// const dom = new Dom();
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const createStepBox = (idx, text) => {
-//         const div = Dom.div.set({
-//             style: {
-//                 display: 'inline-flex',
-//                 flexDirection: 'column',
-//                 alignItems: 'center',
-//                 border: '1px solid #ddd',
-//                 padding: '5px',
-//                 gap: '5px',
-//                 width: '100%',
-//                 maxWidth: '200px',
-//             },
-//             on: {
-//                 click: function () {
-//                     alert(`Step0${idx}: ${text}`);
-//                 },
-//             },
-//             nested: [
-//                 Dom.span.set({
-//                     text: `Step0${idx}`,
-//                     style: { color: '#fff', fontSize: '11px' },
-//                 }),
-//                 Dom.p.set({
-//                     text: text,
-//                     classes: 'step_text',
-//                     style: { color: '#fff', fontSize: '15px', fontWeight: 700 },
-//                     nested: [
-//                         Dom.div.set({
-//                             style: {
-//                                 display: 'flex',
-//                                 gap: '5px',
-//                                 marginTop: '10px',
-//                                 justifyContent: 'center',
-//                                 alignItems: 'center',
-//                             },
-//                             nested: [
-//                                 Dom.span.set({
-//                                     text: '🤔',
-//                                     classes: 'emoji, step_text_emoji1',
-//                                 }),
-//                                 Dom.span.set({
-//                                     text: '🥺',
-//                                     classes: 'emoji, step_text_emoji2',
-//                                 }),
-//                             ],
-//                         }),
-//                     ],
-//                 }),
-//             ],
-//         });
-
-//         return div;
-//     };
-
-//     Dom.body.set({
-//         nested: [createStepBox(1, 'Make Relationship'), createStepBox(2, 'Make Friendship'), createStepBox(3, 'Make Love')],
-//         style: {
-//             display: 'flex',
-//             justifyContent: 'center',
-//             alignItems: 'center',
-//             height: '100vh',
-//             gap: '10px',
-//         },
-//     });
-// });

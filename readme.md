@@ -85,7 +85,7 @@ DomCraft.Dom.body.set({
 | `Dom.span`        | Creates a `<span>` element                              |
 | `Dom.p`           | Creates a `<p>` element                                 |
 | `Dom.body`        | Returns a wrapper for the `<body>` element              |
-| `Dom.ce('tag')`   | Creates a custom tag element                            |
+| `Dom.el('tag')`   | Creates a custom tag element                            |
 
 | ElementBuilder Methods | Description                                             |
 | ---------------------- | ------------------------------------------------------- |
