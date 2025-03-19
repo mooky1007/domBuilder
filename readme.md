@@ -39,7 +39,7 @@ npm i dom_craft
 <script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.js"></script>
 <script>
     Dom.body.set({
-        nested: [
+        children: [
             Dom.div.set({
                 text: 'Hello, DomCraft!',
                 style: {
@@ -66,7 +66,7 @@ npm i dom_craft
 import DomCraft from 'dom_craft';
 
 DomCraft.Dom.body.set({
-    nested: [
+    children: [
         DomCraft.Dom.div.set({
             text: 'Hello from import!',
             style: { color: 'blue', fontSize: '20px' },
@@ -87,15 +87,9 @@ DomCraft.Dom.body.set({
 | `Dom.body`        | Returns a wrapper for the `<body>` element              |
 | `Dom.el('tag')`   | Creates a custom tag element                            |
 
-| ElementBuilder Methods | Description                                             |
-| ---------------------- | ------------------------------------------------------- |
-| `.set({...})`          | Set text, style, classes, attributes, events, children  |
-| `.style({...})`        | Apply inline styles                                     |
-| `.classes('a, b')`     | Add classes (comma-separated string or array supported) |
-| `.attrs({...})`        | Add attributes (like `id`, `data-*` keys)               |
-| `.on({event:fn})`      | Add event listeners                                     |
-| `.nested([...])`       | Append child elements                                   |
-| `.build()`             | Return the final DOM element                            |
+| ElementBuilder Methods | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| `.set({...})`          | Set text, style, classes, attributes, events, children |
 
 ---
 
