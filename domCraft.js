@@ -13,6 +13,12 @@ export class Dom {
         return new Element(document.querySelector('body'));
     }
 
+    static delay(ms) {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(), ms);
+        });
+    }
+
     static injectCss(cssText) {
         const styleTag = document.createElement('style');
         styleTag.textContent = cssText;
@@ -80,12 +86,15 @@ export class Element {
             this.el = el;
         }
         this.init();
-        return this.el;
     }
     init() {
+        this.el.newEl = this;
         this.el.set = this.set.bind(this);
         this.el.attr = this.attr.bind(this);
         this.el.animations = this.animations.bind(this);
+        this.el.destroy = this.destroy.bind(this);
+        this.el.addChildren = this.addChildren.bind(this);
+        this.el.replaceChildren = this.replaceChildren.bind(this);
     }
     set(config = {}) {
         this.config = config;
@@ -103,7 +112,8 @@ export class Element {
             if ('ref' in config && typeof config.ref === 'function') config.ref(this);
             if ('children' in config) this.children(config.children);
             if ('on' in config) this.on(config.on);
-            if ('animations' in config) this.animations(config.animations);
+            if ('introAnimation' in config) this.introAnimation = config.introAnimation;
+            if ('outroAnimation' in config) this.outroAnimation = config.outroAnimation;
         }
 
         return this.el;
@@ -177,8 +187,14 @@ export class Element {
     }
 
     children(children) {
-        children.forEach((el) => {
-            this.el.append(el);
+        children.forEach(async (el) => {
+            if (el.newEl.introAnimation) {
+                const { keyframe, options } = el.newEl.introAnimation;
+                this.el.append(el);
+                await el.animate(keyframe, options).finished;
+            } else {
+                this.el.append(el);
+            }
         });
         return this.el;
     }
@@ -192,5 +208,23 @@ export class Element {
             this.el.addEventListener(key, value.bind(this));
         });
         return this.el;
+    }
+
+    async destroy() {
+        if (this.outroAnimation) {
+            const { keyframe, options } = this.outroAnimation;
+            await this.el.animate(keyframe, options).finished;
+            return this.el.remove();
+        } else {
+            return this.el.remove();
+        }
+    }
+    replaceChildren(...children) {
+        this.el.innerHTML = '';
+        this.children(children);
+    }
+
+    addChildren(...children) {
+        this.children(children);
     }
 }

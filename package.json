@@ -1,10 +1,9 @@
 {
     "name": "dom_craft",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
     "main": "domCraft.js",
     "module": "domCraft.js",
-    "types": "domCraft.d.ts",
     "scripts": {
         "clean": "rimraf dist",
         "build": "npm run clean && rollup -c",
