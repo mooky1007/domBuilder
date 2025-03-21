@@ -37,19 +37,122 @@
         TodoList = Dom.ul,
         TodoAddButton = Dom.button,
         TodoCount = Dom.span,
-        TodoItem = (config) => {
+        TodoItem = (text) => {
           const item = Dom.li;
-          item.style({
-            marginLeft: '20px',
-            fontSize: '12px',
+          item.set({
+            style: {
+              display: 'flex',
+              gap: '5px',
+              alignItems: 'center',
+              fontSize: '12px',
+            },
+            introAnimation: {
+              keyframe: [{
+                  opacity: 0,
+                  transform: 'translateX(5px)'
+                },
+                {
+                  opacity: 1,
+                  transform: 'translateX(0)'
+                }
+              ],
+              options: {
+                duration: 200,
+                fill: 'both'
+              }
+            },
+            outroAnimation: {
+              keyframe: [{
+                  opacity: 1,
+                  transform: 'translateX(0)'
+                },
+                {
+                  opacity: 0,
+                  transform: 'translateX(-5px)'
+                }
+              ],
+              options: {
+                duration: 300,
+                fill: 'both'
+              }
+            },
+            children: [
+              Dom.div.set({
+                style: {
+                  flex: '0 0 auto',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                },
+                children: [
+                  Dom.input.set({
+                    type: 'checkbox',
+                  })
+                ]
+              }),
+              Dom.div.set({
+                style: {
+                  flex: '1 0 0',
+                },
+                children: [
+                  Dom.p.set({
+                    text,
+                    style: {
+                      wordBreak: 'keep-all',
+                      overflowWrap: 'wrap'
+                    }
+                  })
+                ]
+              }),
+              Dom.div.set({
+                style: {
+                  flex: '0 0 auto',
+                  width: '24px',
+                  height: '24px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                },
+                children: [
+                  Dom.button.set({
+                    text: '🗑️',
+                    type: 'button',
+                    style: {
+                      width: '20px',
+                      height: '20px'
+                    },
+                    on: {
+                      click: function() {
+                        item.destroy();
+                      }
+                    },
+                  })
+                ]
+              }),
+            ]
           })
-          item.set(config);
+
           return item;
         };
 
       TodoContainer.set({
+        introAnimation: {
+          keyframe: [{
+              opacity: 0,
+              transform: 'translateY(10px)'
+            },
+            {
+              opacity: 1,
+              transform: 'translateY(0)'
+            }
+          ],
+          options: {
+            duration: 200,
+            fill: 'both'
+          }
+        },
         style: {
-          width: 'auto',
+          width: '300px',
           height: 'auto',
           padding: '30px',
           border: '1px solid #ddd',
@@ -70,6 +173,8 @@
           margin: '10px 0',
           display: 'flex',
           flexDirection: 'column',
+          height: '320px',
+          overflow: 'auto',
           gap: '5px'
         }
       })
@@ -77,12 +182,13 @@
         type: 'submit',
         text: 'Add ',
         style: {
-          padding: '0 5px',
+          padding: '0 10px',
           borderRadius: '5px',
           border: 'none',
           background: '#333',
           color: '#fff',
-          fontSize: '12px'
+          fontSize: '12px',
+          flex: '0 0 auto'
         },
       })
       TodoCount.set({
@@ -93,9 +199,10 @@
         style: {
           padding: '5px 10px',
           border: '1px solid #aaa',
-          borderRadius: '5px'
+          borderRadius: '5px',
+          flex: '1 1 auto'
         },
-        placeholder: 'write todo list',
+        placeholder: 'Write todo list',
       });
       TodoForm.set({
         style: {
@@ -139,9 +246,11 @@
         gap: '30px',
         flexWrap: 'wrap'
       },
-      children: [Todo('My Todo'), Todo('Your Todo'), Todo('Sub Todo'), , Todo('Sub Todo2')]
+      children: [
+        Todo('My Todo'),
+      ]
     }));
-    Dom.body.el.prepend(ROOT);
+    Dom.body.el.prepend(ROOT.el);
   </script>
 </body>
 

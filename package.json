@@ -1,6 +1,6 @@
 {
     "name": "dom_craft",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "A lightweight, declarative DOM builder for vanilla JavaScript.",
     "main": "dist/dom_craft.umd.js",
     "module": "dist/dom_craft.esm.js",

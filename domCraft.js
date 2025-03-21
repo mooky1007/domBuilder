@@ -12,7 +12,6 @@ export class Dom {
     static get body() {
         return new Element(document.querySelector('body'));
     }
-
     static delay(ms) {
         return new Promise((resolve) => {
             setTimeout(() => resolve(), ms);
@@ -52,11 +51,9 @@ export class Dom {
     static get div() {
         return new Element('div');
     }
-
     static get img() {
         return new Element('img');
     }
-
     static get section() {
         return new Element('section');
     }
@@ -94,21 +91,8 @@ export class Dom {
 
 export class Element {
     constructor(el) {
-        if (typeof el === 'string') {
-            this.el = document.createElement(el);
-        } else {
-            this.el = el;
-        }
-        this.init();
-    }
-    init() {
-        this.el.newEl = this;
-        this.el.set = this.set.bind(this);
-        this.el.attr = this.attr.bind(this);
-        this.el.animations = this.animations.bind(this);
-        this.el.destroy = this.destroy.bind(this);
-        this.el.addChildren = this.addChildren.bind(this);
-        this.el.replaceChildren = this.replaceChildren.bind(this);
+        if (typeof el === 'string') this.el = document.createElement(el);
+        else this.el = el;
     }
     set(config = {}) {
         this.config = config;
@@ -116,97 +100,45 @@ export class Element {
             this.text(config);
         } else {
             Object.entries(config).forEach(([key, value]) => {
-                switch (key) {
-                    case 'text':
-                        this.text(value);
-                        break;
-                    case 'html':
-                        this.html(value);
-                        break;
-                    case 'style':
-                        this.style(value);
-                        break;
-                    case 'attr':
-                        this.attr(value);
-                        break;
-                    case 'dataset':
-                        this.dataset(value);
-                        break;
-                    case 'href':
-                        this.href(value);
-                        break;
-                    case 'src':
-                        this.src(value);
-                        break;
-                    case 'type':
-                        this.type(value);
-                        break;
-                    case 'placeholder':
-                        this.placeholder(value);
-                        break;
-                    case 'id':
-                        this.id(value);
-                        break;
-                    case 'class':
-                        this.class(value);
-                        break;
-                    case 'ref':
-                        value(this);
-                        break;
-                    case 'children':
-                        this.children(value);
-                        break;
-                    case 'on':
-                        this.on(value);
-                        break;
-                    case 'introAnimation':
-                        this.introAnimation = value;
-                        break;
-                    case 'outroAnimation':
-                        this.outroAnimation = value;
-                        break;
-                    default:
-                        this[key] = value;
-                        break;
-                }
+                if (key in this) this[key](value);
+                else this[key] = value;
             });
         }
 
-        return this.el;
+        return this;
     }
 
     id(id) {
         this.el.id = id;
-        return this.el;
+        return this;
     }
     text(value) {
         this.el.textContent = value;
-        return this.el;
+        return this;
     }
 
     html(value) {
         this.el.innerHTML = value;
-        return this.el;
+        return this;
     }
 
     placeholder(placeholder) {
         this.el.placeholder = placeholder;
-        return this.el;
+        return this;
     }
-
     type(type) {
         this.el.type = type;
-        return this.el;
+        return this;
     }
 
     src(value) {
         this.el.src = value;
-        return this.el;
+        return this;
     }
 
     href(value) {
         this.el.href = value;
-        return this.el;
+        return this;
     }
 
     class(value) {
@@ -217,26 +149,26 @@ export class Element {
                 this.el.classList.add(className.trim());
             });
         }
-        return this.el;
+        return this;
     }
 
     attr(attr) {
         Object.entries(attr).forEach(([key, value]) => {
             this.el.setAttribute(key, value);
         });
-        return this.el;
+        return this;
     }
 
     style(style) {
         Object.entries(style).forEach(([key, value]) => (this.el.style[key] = value));
-        return this.el;
+        return this;
     }
 
     dataset(dataset) {
         Object.entries(dataset).forEach(([key, value]) => {
             this.el.dataset[key] = value;
         });
-        return this.el;
+        return this;
     }
 
     animations(animations) {
@@ -249,7 +181,7 @@ export class Element {
             const { keyframe, options } = animations;
             this.animate(keyframe, options);
         }
-        return this.el;
+        return this;
     }
     async animate(keyframe, options) {
         this.ani = this.el.animate(keyframe, options);
@@ -258,26 +190,16 @@ export class Element {
     }
 
     children(children) {
-        children.forEach(async (el) => {
-            if (el instanceof Element) {
-                if (el.introAnimation) {
-                    const { keyframe, options } = el.introAnimation;
-                    this.el.append(el.el);
-                    await el.el.animate(keyframe, options).finished;
-                } else {
-                    this.el.append(el.el);
-                }
-            } else {
-                if (el.newEl.introAnimation) {
-                    const { keyframe, options } = el.newEl.introAnimation;
-                    this.el.append(el);
-                    await el.animate(keyframe, options).finished;
-                } else {
-                    this.el.append(el);
+        children.forEach(async (element) => {
+            if (element instanceof Element) {
+                this.el.append(element.el);
+                if (element.introAnimation) {
+                    const { keyframe, options } = element.introAnimation;
+                    element.el.animate(keyframe, options);
                 }
             }
         });
-        return this.el;
+        return this;
     }
 
     on(events) {
@@ -288,7 +210,7 @@ export class Element {
             }
             this.el.addEventListener(key, value.bind(this));
         });
-        return this.el;
+        return this;
     }
 
     async destroy() {

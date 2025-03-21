@@ -30,7 +30,7 @@ npm install dom_craft
 
 Or use via CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.min.js"></script>
 ```
 
 ---
