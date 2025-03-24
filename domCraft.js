@@ -9,6 +9,14 @@ export class Dom {
     static el(tagName) {
         return new Element(document.createElement(tagName));
     }
+    static get presets() {
+        return {
+            animations: {
+                fadeIn: [{ opacity: 0 }, { opacity: 1 }],
+                fadeOut: [{ opacity: 1 }, { opacity: 0 }],
+            },
+        };
+    }
     static get body() {
         return new Element(document.querySelector('body'));
     }
@@ -17,11 +25,9 @@ export class Dom {
             setTimeout(() => resolve(), ms);
         });
     }
-
     static injectCss(cssText) {
         const styleTag = document.createElement('style');
         styleTag.textContent = cssText;
-
         document.head.append(styleTag);
     }
     static get span() {
@@ -69,6 +75,9 @@ export class Dom {
     static get main() {
         return new Element('main');
     }
+    static get ol() {
+        return new Element('ol');
+    }
     static get ul() {
         return new Element('ul');
     }
@@ -107,7 +116,6 @@ export class Element {
 
         return this;
     }
-
     id(id) {
         this.el.id = id;
         return this;
@@ -142,10 +150,10 @@ export class Element {
     }
 
     class(value) {
-        if (value.split(',').length === 1) {
+        if (value.split(' ').length === 1) {
             this.el.classList.add(value);
         } else {
-            value.split(',').forEach((className) => {
+            value.split(' ').forEach((className) => {
                 this.el.classList.add(className.trim());
             });
         }
@@ -189,10 +197,14 @@ export class Element {
         this.onAnimationEnd && this.onAnimationEnd.call(this);
     }
 
-    children(children) {
+    children(children, append = true) {
+        if (!Array.isArray(children)) children = [children];
+
         children.forEach(async (element) => {
             if (element instanceof Element) {
-                this.el.append(element.el);
+                if (append) this.el.append(element.el);
+                else this.el.prepend(element.el);
+
                 if (element.introAnimation) {
                     const { keyframe, options } = element.introAnimation;
                     element.el.animate(keyframe, options);
@@ -213,7 +225,7 @@ export class Element {
         return this;
     }
 
-    async destroy() {
+    async remove() {
         if (this.outroAnimation) {
             const { keyframe, options } = this.outroAnimation;
             await this.el.animate(keyframe, options).finished;
@@ -222,12 +234,16 @@ export class Element {
             return this.el.remove();
         }
     }
-    replaceChildren(...children) {
+    replace(children) {
         this.el.innerHTML = '';
         this.children(children);
     }
 
-    addChildren(...children) {
+    append(children) {
         this.children(children);
+    }
+
+    prepend(children) {
+        this.children(children, false);
     }
 }

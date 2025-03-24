@@ -47,30 +47,14 @@
               fontSize: '12px',
             },
             introAnimation: {
-              keyframe: [{
-                  opacity: 0,
-                  transform: 'translateX(5px)'
-                },
-                {
-                  opacity: 1,
-                  transform: 'translateX(0)'
-                }
-              ],
+              keyframe: Dom.presets.animations.fadeIn,
               options: {
                 duration: 200,
                 fill: 'both'
               }
             },
             outroAnimation: {
-              keyframe: [{
-                  opacity: 1,
-                  transform: 'translateX(0)'
-                },
-                {
-                  opacity: 0,
-                  transform: 'translateX(-5px)'
-                }
-              ],
+              keyframe: Dom.presets.animations.fadeOut,
               options: {
                 duration: 300,
                 fill: 'both'
@@ -119,11 +103,12 @@
                     type: 'button',
                     style: {
                       width: '20px',
-                      height: '20px'
+                      height: '20px',
+                      fontSize: '8px'
                     },
                     on: {
                       click: function() {
-                        item.destroy();
+                        item.remove();
                       }
                     },
                   })
@@ -214,9 +199,9 @@
           submit: function(e) {
             e.preventDefault();
             if (TodoInput.el.value !== '') {
-              TodoList.addChildren(
+              TodoList.append([
                 TodoItem(TodoInput.el.value)
-              )
+              ])
               TodoList.count += 1;
               TodoCount.update();
               TodoInput.el.value = '';
@@ -238,7 +223,7 @@
       return TodoContainer;
     }
 
-    ROOT.replaceChildren(Dom.div.set({
+    ROOT.replace(Dom.div.set({
       style: {
         display: 'flex',
         alignItems: 'stretch',
@@ -250,7 +235,7 @@
         Todo('My Todo'),
       ]
     }));
-    Dom.body.el.prepend(ROOT.el);
+    Dom.body.prepend(ROOT);
   </script>
 </body>
 
