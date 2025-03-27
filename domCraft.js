@@ -33,8 +33,8 @@ export class Dom {
             listeners.forEach((fn) => fn());
         };
 
-        listeners.sub = (fn) => listeners.add(fn);
-        listeners.unsub = (fn) => listeners.delete(fn);
+        get.sub = (fn) => listeners.add(fn);
+        get.unsub = (fn) => listeners.delete(fn);
 
         return [get, set];
     }
