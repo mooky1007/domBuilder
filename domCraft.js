@@ -11,15 +11,39 @@ export class Dom {
     }
     static get presets() {
         return {
-            animations: {
+            ani: {
                 fadeIn: [{ opacity: 0 }, { opacity: 1 }],
                 fadeOut: [{ opacity: 1 }, { opacity: 0 }],
+                slideUp: [{ transform: 'translateY(10px)' }, { transform: 'translateY(0)' }],
+                slideDown: [{ transform: 'translateY(-10px)' }, { transform: 'translateY(0)' }],
             },
         };
     }
     static get body() {
         return new Element(document.querySelector('body'));
     }
+
+    static state(intial) {
+        let _value = intial;
+        const listeners = new Set();
+
+        const get = () => _value;
+        const set = (newValue) => {
+            _value = newValue;
+            listeners.forEach((fn) => fn());
+        };
+
+        listeners.sub = (fn) => listeners.add(fn);
+        listeners.unsub = (fn) => listeners.delete(fn);
+
+        return [get, set];
+    }
+
+    static effect(fn, deps) {
+        deps.forEach((deps) => deps.sub(fn));
+        fn();
+    }
+
     static delay(ms) {
         return new Promise((resolve) => {
             setTimeout(() => resolve(), ms);
@@ -35,6 +59,9 @@ export class Dom {
     }
     static get p() {
         return new Element('p');
+    }
+    static get i() {
+        return new Element('i');
     }
     static get h1() {
         return new Element('h1');
@@ -220,6 +247,7 @@ export class Element {
                 this.onAnimationEnd = value;
                 return;
             }
+
             this.el.addEventListener(key, value.bind(this));
         });
         return this;
@@ -234,6 +262,7 @@ export class Element {
             return this.el.remove();
         }
     }
+
     replace(children) {
         this.el.innerHTML = '';
         this.children(children);
@@ -241,6 +270,10 @@ export class Element {
 
     append(children) {
         this.children(children);
+    }
+
+    removeClass(className) {
+        this.el.classList.remove(className);
     }
 
     prepend(children) {

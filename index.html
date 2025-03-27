@@ -121,21 +121,6 @@
         };
 
       TodoContainer.set({
-        introAnimation: {
-          keyframe: [{
-              opacity: 0,
-              transform: 'translateY(10px)'
-            },
-            {
-              opacity: 1,
-              transform: 'translateY(0)'
-            }
-          ],
-          options: {
-            duration: 200,
-            fill: 'both'
-          }
-        },
         style: {
           width: '300px',
           height: 'auto',
@@ -148,6 +133,13 @@
       })
       TodoTitle.set({
         text: titleText || 'Todo',
+        introAnimation: {
+          keyframe: Dom.presets.ani.fadeIn,
+          options: {
+            duration: 300,
+            fill: 'both'
+          }
+        },
         style: {
           fontSize: '18px'
         }
