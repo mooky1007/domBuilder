@@ -63,6 +63,9 @@ export class Dom {
     static get i() {
         return new Element('i');
     }
+    static get label() {
+        return new Element('label');
+    }
     static get h1() {
         return new Element('h1');
     }
@@ -92,6 +95,9 @@ export class Dom {
     }
     static get article() {
         return new Element('article');
+    }
+    static get figure() {
+        return new Element('figure');
     }
     static get header() {
         return new Element('header');
