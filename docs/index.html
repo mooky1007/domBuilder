@@ -33,260 +33,767 @@
 </head>
 
 <body>
+  <aside>
+    <h2>🛠️ Dom Craft</h2>
+    <ul>
+      <li><a href="#Create_components">Create components</a></li>
+      <li><a href="#Nest_components">Nested components</a></li>
+      <li><a href="#Set_components">Set components</a></li>
+      <li><a href="#Reactive_components">Reactive State</a></li>
+      <li><a href="#Event_handling">Event Handling</a></li>
+      <li><a href="#Style_and_attr">Styling & Attributes</a></li>
+      <li><a href="#Animation_support">Animation Support</a></li>
+      <li><a href="#In_view_observer">In-View Observer</a></li>
+      <li><a href="#Inject_css">Inject CSS</a></li>
+      <li><a href="#Custom_component">Custom Components</a></li>
+    </ul>
+  </aside>
   <div class="inner">
     <h1 class="doc_title">Quick Start</h1>
-    <section>
-      <h2 class="doc_title">Create and nest components</h2>
+
+    <section id="Create_components">
+      <h2 class="doc_title">Create components</h2>
+      <p class="doc_desc">You can create elements using <code>Dom.TagName</code> like <code>Dom.div</code>, <code>Dom.h1</code>, and so on.</p>
+      <div class="editor" style="min-height: auto;">
+        <pre>
+        <code class="language-js">
+    Dom.div;
+    Dom.section;
+    Dom.p;
+    Dom.h1;
+    Dom.span;
+    Dom.img;
+    ...
+        </code>
+      </pre>
+      </div>
+    </section>
+
+    <section id="Nest_components">
+      <h2 class="doc_title">Nested components</h2>
+      <p class="doc_desc">Nest elements using <code>.set({ children })</code> or <code>.children([])</code> to build complex structures easily.</p>
       <div class="editor">
         <pre>
         <code class="language-js">
-    const H1 = Dom.h1.set({text: 'Hello World'});
-    Dom.body.append(H1);
-
-    // -------------------------------------------------
-
-    const DIV = Dom.div;
-    const H1 = Dom.h1;
-    const SPAN = Dom.span;
-    
-    DIV.set({ class: "title" })
-    H1.set({ text: 'Hello ' });
-    SPAN.set({ style: { color: 'red' }, text: 'World' })
-
-    DIV.set({
+    Dom.ul.set({
       children: [
-        H1.set({
-          children: [
-            SPAN
-          ]
-        })
+        Dom.li,
+        Dom.li,
+        Dom.li,
+        Dom.li,
+        ...
       ]
     })
 
-    Dom.body.append(H1);
-        </code>
-      </pre>
-        <div class="preview">
-          <h1>Hello World</h1>
-          <div class="title">
-            <h1>Hello <span style="color: red;">World</span></h1>
-          </div>
-        </div>
-      </div>
-    </section>
+    //or
 
-    <p class="doc_desc">It can also be used as a functional component.</p>
-
-    <section>
-      <div class="editor">
-        <pre>
-        <code class="language-js">
-    const H1 = (text) => {
-      return Dom.h1.set({text});
-    }
-
-    Dom.body.append([
-      H1('Hello'),
-      H1('Dom'),
-      H1('Craft')
+    Dom.ul.children([
+      Dom.li,
+      Dom.li,
+      Dom.li,
+      Dom.li,
+      ...
     ])
         </code>
-      </pre>
-        <div class="preview">
-          <h1>Hello</h1>
-          <h1>Dom</h1>
-          <h1>Craft</h1>
-        </div>
+        </pre>
+        <pre>
+          <code class="language-html">
+    &lt;ul&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      ...
+    &lt;/ul&gt;
+
+    <!-- or -->
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+      ...
+    &lt;/ul&gt;
+          </code>
+        </pre>
+      </div>
+      <div class="editor" style="min-height: auto;">
+        <pre>
+        <code class="language-js">
+    Dom.ul.set({
+      children: [
+        Dom.li.set({
+          children: [
+          Dom.a.set({
+            children: [
+              Dom.i,
+              Dom.span
+            ]})
+          ]
+        }),
+        Dom.li.set({
+          children: [
+          Dom.a.set({
+            children: [
+              Dom.i,
+              Dom.span
+            ]})
+          ]
+        }),
+        Dom.li.set({
+          children: [
+          Dom.a.set({
+            children: [
+              Dom.i,
+              Dom.span
+            ]})
+          ]
+        }),
+      ]
+    })
+        </code>
+        </pre>
+        <pre>
+          <code class="language-html">
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;a&gt;
+          &lt;i&gt;&lt;/i&gt;
+          &lt;span&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a&gt;
+          &lt;i&gt;&lt;/i&gt;
+          &lt;span&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a&gt;
+          &lt;i&gt;&lt;/i&gt;
+          &lt;span&gt;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+          </code>
+        </pre>
       </div>
     </section>
 
-    <section>
-      <h2 class="doc_title">Adding inline-styles & class and id</h2>
+    <section id="Set_components">
+      <h2 class="doc_title">Set components</h2>
+      <p class="doc_desc">
+        You can configure a component using the <code>.set({ ... })</code> method.
+        This allows you to set <strong>attributes</strong>, <strong>styles</strong>, <strong>events</strong>, <strong>dataset</strong>, and more — all in a single declarative call.
+      </p>
       <div class="editor">
         <pre>
         <code class="language-js">
-      const Box = Dom.div.set({
-        id: 'first_box',
-        class: 'my_box',
-        style: {
-          width: '100px',
-          height: '100px',
-          border: '1px solid #000'
+    Dom.div.set({
+      id: 'myDiv',
+      class: 'box type-1',
+      style: {
+        width: '100px',
+        height: '100px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+        border: '1px solid #000',
+        background: 'black'
+      },
+      text: "Dom Craft",
+      attr: {
+        someAttr: 'attr value'
+      },
+      dataset: {
+        role: 'box'
+      },
+      on: {
+        click: () => {
+          alert('click!');
         }
-      })
-
-      Dom.body.append(Box)
+      }
+      ...
+    })
         </code>
-      </pre>
-        <div class="preview">
-          <div id="first_box" class="my_box" style="width: 100px; height: 100px; border: 1px solid rgb(0, 0, 0);"></div>
-        </div>
-      </div>
-    </section>
-
-    <p class="doc_desc">You can also inject styles directly into the head tag.</p>
-
-    <section>
-      <div class="editor">
+        </pre>
         <pre>
-          <code class="language-js">
-      Dom.injectCss(`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        .box {
-          width: 100px;
-          height: 100px;
-          border: 1px solid #000;
-        }
-      `)
+          <code class="language-html">
+    &lt;div 
+      id="myDiv" 
+      class="box type-1" 
+      someattr="attr value" 
+      data-role="box" 
+      style="
+        width: 100px; 
+        height: 100px; 
+        border: 1px solid rgb(0, 0, 0); 
+        background: black;
+      "
+    &gt;Dom Craft&lt;/div&gt;
           </code>
         </pre>
+        <div class="preview" id="sample01"></div>
+        <script>
+          Dom.qs('#sample01').append(
+            Dom.div.set({
+              id: 'myDiv',
+              class: 'box type-1',
+              style: {
+                width: '100px',
+                height: '100px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+                border: '1px solid #000',
+                background: 'black'
+              },
+              text: "Dom Craft",
+              attr: {
+                someAttr: 'attr value'
+              },
+              dataset: {
+                role: 'box'
+              },
+              on: {
+                click: () => {
+                  alert('click!');
+                }
+              }
+            })
+          )
+        </script>
       </div>
     </section>
 
-    <section>
-      <h2 class="doc_title">Render Data</h2>
+    <section id="Reactive_components">
+      <h2 class="doc_title">Reactive State</h2>
+      <p class="doc_desc">
+        DomCraft provides a simple and lightweight reactivity system with <code>state()</code> and <code>effect()</code>.
+        <br><br>
+        You can create reactive values using <code>Dom.state(initialValue)</code> and subscribe to changes using <code>Dom.effect(fn, [deps])</code>. <br>
+        When the state updates, all dependent effects are automatically re-evaluated.
+        <br><br>
+        This enables you to build dynamic, interactive UI without needing any complex framework or virtual DOM.
+      </p>
       <div class="editor">
         <pre>
-          <code class="language-js">
-      const data = [
-        {title: 'list-item1'},
-        {title: 'list-item2'},
-        {title: 'list-item3'},
-        {title: 'list-item4'},
-        {title: 'list-item5'},
-      ];
+        <code class="language-js">
+    const [count, setCount] = Dom.state(0);
+    const button = Dom.button;
 
-      const Li = (data) => Dom.li.set({text: data.title})
+    Dom.effect(() => {
+      button.text(`Clicked: ${count()} times`);
+    }, [count]);
 
-      Dom.body.append(
-        Dom.ul.set({
-          style: { marginLeft: '20px' },
-          children: data.map(el => Li(el))
-        })
-      )
+    button.set({
+      on: {
+        click: () => setCount(count() + 1)
+      }
+    });
+        </code>
+        </pre>
+        <div class="preview" id="sample02"></div>
+
+        <script>
+          const [count, setCount] = Dom.state(0);
+          const button = Dom.button;
+
+          Dom.effect(() => {
+            button.text(`Clicked: ${count()} times`);
+          }, [count]);
+
+          button.set({
+            style: {
+              padding: '5px'
+            },
+            on: {
+              click: () => setCount(count() + 1)
+            }
+          });
+
+          Dom.qs('#sample02').append(button)
+        </script>
+      </div>
+    </section>
+
+    <section id="Event_handling">
+      <h2 class="doc_title">Event Handling</h2>
+      <p class="doc_desc">
+        DomCraft allows you to bind native DOM events declaratively using the <code>on</code> property.
+        Simply pass an object of event listeners (like <code>click</code>, <code>input</code>, <code>submit</code>, etc) inside the <code>.set()</code> method.
+        <br><br>
+        Handlers are automatically bound to the element and scoped cleanly — no manual <code>addEventListener</code> required.
+      </p>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    const P = Dom.p.set({text: 'You typed: '});
+    const Input = Dom.input.set({
+      type: 'text',
+      placeholder: 'Type something...',
+      on: {
+        input: (e) => {
+          console.log(`
+            You typed: ${e.target.value}
+          `);
+        }
+      }
+    });
+        </code>
+        </pre>
+        <pre>
+          <code class="language-html">
+    &lt;p&gt;You typed: &lt;/p&gt;
+
+    &lt;input 
+      type="text" 
+      placeholder="Type something..." 
+    &gt;
           </code>
         </pre>
-        <div class="preview">
-          <ul style="margin-left: 20px;">
-            <li>list-item1</li>
-            <li>list-item2</li>
-            <li>list-item3</li>
-            <li>list-item4</li>
-            <li>list-item5</li>
-          </ul>
-        </div>
+        <div class="preview" id="sample03"></div>
+        <script>
+          const P = Dom.p.set({
+            text: `You typed: `,
+            style: {
+              marginBottom: '10px'
+            }
+          });
+          const Input = Dom.input.set({
+            type: 'text',
+            placeholder: 'Type something...',
+            style: {
+              padding: '5px'
+            },
+            on: {
+              input: (e) => {
+                P.set({
+                  text: `You typed: ${e.target.value}`,
+                });
+              }
+            }
+          });
+
+          Dom.qs('#sample03').append([P, Input])
+        </script>
       </div>
     </section>
 
-    <section>
-      <h2 class="doc_title">Event Binding & State And Effect</h2>
+    <section id="Style_and_attr">
+      <h2 class="doc_title">Styling & Attributes</h2>
+      <p class="doc_desc">
+        You can apply styles, attributes, and dataset values declaratively using the <code>.set()</code> method.
+        <br><br>
+        Use:
+        <span><code>style</code> – to apply inspanne CSS styles as a JS object</span>
+        <span><code>attr</code> – to add native HTML attributes (e.g. <code>type</code>, <code>placeholder</code>)</span>
+        <span><code>dataset</code> – to define <code>data-*</code> attributes</span>
+        These configurations make element setup clean and centralized.
+      </p>
       <div class="editor">
         <pre>
-          <code class="language-js">
-      const Counter = () => {
-        const CounterButton = Dom.button;
-        const [count, setCount] = Dom.state(0);
-        Dom.effect(() => {
-          CounterButton.text(`counted ${count()}`);
-        }, [count])
+        <code class="language-js">
+    const box = Dom.div.set({
+      id: 'myBox',
+      class: 'highlighted',
+      style: {
+        width: '200px',
+        height: '100px',
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '8px'
+      },
+      text: 'Styled Box',
+      attr: {
+        title: 'Hover tooltip',
+        role: 'presentation'
+      },
+      dataset: {
+        type: 'feature',
+        index: '1'
+      }
+    });
+        </code>
+        </pre>
+        <pre>
+          <code class="language-html">
+    &lt;div
+      id="myBox"
+      class="highlighted"
+      title="Hover tooltip"
+      role="presentation"
+      data-type="feature"
+      data-index="1"
+      style="
+        width: 200px;
+        height: 100px;
+        background-color: #4CAF50;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+      "
+    &gt;
+      Styled Box
+    &lt;/div&gt;
+          </code>
+        </pre>
+        <div class="preview" id="sample04"></div>
+        <script>
+          Dom.qs('#sample04').append(Dom.div.set({
+            id: 'myBox',
+            class: 'highlighted',
+            style: {
+              width: '200px',
+              height: '100px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '8px'
+            },
+            text: 'Styled Box',
+            attr: {
+              title: 'Hover tooltip',
+              role: 'presentation'
+            },
+            dataset: {
+              type: 'feature',
+              index: '1'
+            }
+          }));
+        </script>
+      </div>
+    </section>
 
-        return CounterButton.set({
-          on: {
-            click: () => setCount(count() + 1)
+    <section id="Animation_support">
+      <h2 class="doc_title">Animation Support</h2>
+      <p class="doc_desc">
+        DomCraft supports animations using the native <code>Element.animate()</code> API.
+        <br><br>
+        You can apply keyframes and options via the <code>.animations()</code> method.
+        <br>
+        Built-in presets such as <code>fadeIn</code>, <code>slideUp</code> are available through <code>Dom.presets.ani</code>.
+      </p>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    const AnimatedBox = Dom.div.set({
+      class: 'box',
+      text: 'I will slide in!',
+      style: {
+        width: '150px',
+        height: '80px',
+        background: '#2196F3',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '20px'
+      }
+    });
+
+    const Button = Dom.button.set({
+      text: 'animate start',
+      on: {
+        click: () => {
+          AnimatedBox.animations({
+            keyframe: Dom.presets.ani.slideUp,
+            options: {
+              duration: 500,
+              easing: 'ease-out',
+              fill: 'both'
+            }
+          })
+        }
+      }
+    })
+        </code>
+        </pre>
+        <div class="preview" id="sample05"></div>
+
+        <script>
+          const AnimatedBox = Dom.div.set({
+            class: 'box',
+            text: 'I will slide in!',
+            style: {
+              width: '150px',
+              height: '80px',
+              background: '#2196F3',
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '20px'
+            }
+          });
+
+          const Button = Dom.button.set({
+            text: 'animate start',
+            style: {
+              marginTop: '10px',
+              padding: '5px'
+            },
+            on: {
+              click: () => {
+                AnimatedBox.animations({
+                  keyframe: Dom.presets.ani.slideUp,
+                  options: {
+                    duration: 500,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                  }
+                })
+              }
+            }
+          })
+
+          Dom.qs('#sample05').append([
+            AnimatedBox,
+            Button
+          ]);
+        </script>
+      </div>
+    </section>
+
+    <section id="In_view_observer">
+      <h2 class="doc_title">In-View Observer</h2>
+      <p class="doc_desc">
+        DomCraft provides an easy wrapper around <code>IntersectionObserver</code> using <code>Dom.inView()</code>.
+        <br><br>
+        This allows you to detect when an element enters or leaves the viewport, perfect for scroll-triggered effects or lazy loading.
+        <br>
+        You can attach <code>in</code> and <code>out</code> handlers directly on the element.
+      </p>
+      <div class="editor" style="max-height: 720px;">
+        <pre>
+        <code class="language-js">
+    const target = Dom.div.set({
+      class: 'inview-box',
+      text: 'Watch me fade in/out!',
+      style: {
+        opacity: 0,
+        transition: 'opacity 0.5s ease',
+        marginTop: '100vh',
+        padding: '50px',
+        background: '#333',
+        color: '#fff',
+        textAlign: 'center'
+      }
+    });
+    
+    target.in = () => {
+      target.style({ opacity: 1 });
+    };
+    
+    target.out = () => {
+      target.style({ opacity: 0 });
+    };
+
+    const observer = Dom.inView(0.3);
+    observer.watch(target);
+        </code>
+        </pre>
+        <div class="preview" id="sample06" style="overflow: auto;">
+          Scroll Down 👇
+        </div>
+
+        <script>
+          const target = Dom.div.set({
+            class: 'inview-box',
+            text: 'Watch me fade in/out!',
+            style: {
+              opacity: 0,
+              transition: 'opacity 0.5s ease',
+              marginTop: '100vh',
+              padding: '50px',
+              background: '#333',
+              color: '#fff',
+              textAlign: 'center'
+            }
+          });
+
+          target.in = () => {
+            target.style({
+              opacity: 1
+            });
+          };
+
+          target.out = () => {
+            target.style({
+              opacity: 0
+            });
+          };
+
+          Dom.qs('#sample06').append(target)
+          const observer = Dom.inView(0.3);
+          observer.watch(target);
+        </script>
+      </div>
+    </section>
+
+    <section id="Inject_css">
+      <h2 class="doc_title">Inject CSS</h2>
+      <p class="doc_desc">
+        Use <code>Dom.injectCss()</code> to dynamically insert custom CSS into your document.
+        <br><br>
+        This is useful for styling components on the fly, injecting theme variables, or adding demo styles without external files.
+      </p>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    Dom.injectCss(`
+      .box {
+        width: 120px;
+        height: 120px;
+        background: dodgerblue;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .box:hover {
+        transform: scale(1.05);
+      }
+    `);
+
+    Dom.div.set({
+      class: 'box',
+      text: 'Hover me!'
+    })
+        </code>
+        </pre>
+        <div class="preview" id="sample07"></div>
+
+        <script>
+          Dom.injectCss(`
+            .box {
+              width: 120px;
+              height: 120px;
+              background: dodgerblue;
+              color: white;
+              font-weight: bold;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 8px;
+              transition: transform 0.3s ease;
+            }
+
+            .box:hover {
+              transform: scale(1.05);
+            }
+          `);
+
+          Dom.qs(`#sample07`).append(
+            Dom.div.set({
+              class: 'box',
+              text: 'Hover me!'
+            })
+          )
+        </script>
+      </div>
+    </section>
+
+    <section id="Custom_component">
+      <h2 class="doc_title">Custom Components</h2>
+      <p class="doc_desc">
+        You can define your own components as plain functions.
+        <br><br>
+        These functions return DomCraft elements and can include internal logic, state, and even effects.
+        <br><br>
+        This makes it easy to encapsulate UI logic and reuse components across your app.
+      </p>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    const Todo = () => {
+      const wrapper = Dom.div;
+      const input = Dom.input;
+      const list = Dom.ul;
+    
+      const form = Dom.form.set({
+        on: {
+          submit: (e) => {
+            e.preventDefault();
+            if (input.el.value.trim()) {
+              list.append(Dom.li.set({ text: input.el.value }));
+              input.el.value = '';
+            }
           }
-        });
-      }
-
-      Dom.body.append([
-        Counter(),
-        Counter(),
-        Counter()
-      ]);
-          </code>
+        },
+        children: [
+          input.set({ 
+            type: 'text', 
+            attr: { placeholder: 'Add todo...' } 
+          }),
+          Dom.button.set({ 
+            type: 'submit', 
+            text: 'Add' 
+          })
+        ]
+      });
+    
+      wrapper.children([form, list]);
+      return wrapper;
+    };
+        </code>
         </pre>
-        <div class="preview" id="counter_sample"></div>
-      </div>
-    </section>
+        <div class="preview" id="sample08"></div>
 
-    <section>
-      <div class="editor">
-        <pre>
-          <code class="language-js">
-      const CountDown = () => {
-        const CountDown = Dom.span;
-        const [count, setCount] = Dom.state(0);
-        Dom.effect(() => {
-          CountDown.text(`counted ${count()}`);
-        }, [count])
+        <script>
+          const Todo = () => {
+            const wrapper = Dom.div;
+            const input = Dom.input;
+            const list = Dom.ul;
 
-        setInterval(() => setCount(count() + 1), 1000)
+            const form = Dom.form.set({
+              on: {
+                submit: (e) => {
+                  e.preventDefault();
+                  if (input.el.value.trim()) {
+                    list.append(Dom.li.set({
+                      text: input.el.value
+                    }));
+                    input.el.value = '';
+                  }
+                }
+              },
+              children: [
+                input.set({
+                  type: 'text',
+                  attr: {
+                    placeholder: 'Add todo...'
+                  }
+                }),
+                Dom.button.set({
+                  type: 'submit',
+                  text: 'Add'
+                })
+              ]
+            });
 
-        return CountDown;
-      }
-
-      Dom.body.append(CountDown());
-          </code>
-        </pre>
-        <div class="preview" id="counter_sample2"></div>
+            wrapper.children([form, list]);
+            return wrapper;
+          };
+          Dom.qs('#sample08').append(Todo())
+        </script>
       </div>
     </section>
   </div>
-  <script>
-    const Counter = () => {
-      const CounterButton = Dom.button;
-      const [count, setCount] = Dom.state(0);
-      Dom.effect(() => {
-        CounterButton.text(`counted ${count()}`);
-      }, [count])
-
-      return CounterButton.set({
-        style: {
-          cursor: 'pointer',
-          padding: '5px'
-        },
-        on: {
-          click: () => setCount(count() + 1)
-        }
-      });
-    }
-
-    Dom.qs('#counter_sample').set({
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        gap: '10px'
-      },
-      children: [
-        Counter(),
-        Counter(),
-        Counter()
-      ]
-    });
-
-    const CountDown = () => {
-      const CountDown = Dom.span;
-      const [count, setCount] = Dom.state(0);
-      Dom.effect(() => {
-        CountDown.text(`timer: ${count()}s`);
-      }, [count])
-
-      setInterval(() => {
-        setCount(count() + 1);
-      }, 1000)
-
-      return CountDown;
-    }
-
-    Dom.qs('#counter_sample2').append([
-      CountDown(),
-    ]);
-  </script>
 </body>
 
 </html>

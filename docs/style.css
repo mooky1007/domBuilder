@@ -1,24 +1,48 @@
 * { margin: 0; padding: 0; box-sizing: border-box; } 
 
-body { background: #4a4a4a; color: #fff; font-family: "Lato", sans-serif; padding-top: 30px; padding-bottom: 30px;} 
+a { color: inherit; text-decoration: none; } 
 
-.inner { width: 90%; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;} 
-.editor { display: flex; width: 100%; min-height: 360px; border-radius: 10px; overflow: hidden; } 
+body { background: #4a4a4a; color: #fff; font-family: "Lato", sans-serif; display: flex; height: 100vh; } 
+body section {padding-top: 40px; padding-bottom: 40px; max-width: 75vw; border-bottom: 1px solid #666;}
+
+body section + section { }
+
+aside { width: 320px; padding: 30px 0; border-right: 1px solid #666; } 
+
+code {
+  background: #333;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+aside h2 {
+  height: 40px;
+  padding: 0 30px;
+  margin-bottom: 10px;
+}
+aside ul { list-style: none; } 
+
+aside ul li { } 
+aside ul li:hover { color: #baffd1; } 
+aside ul li a { display: flex; cursor: pointer; height: 40px; align-items: center; padding: 0 30px; } 
+
+.inner { width: 100%; margin: 0 auto; display: flex; flex-direction: column; padding: 60px 30px; overflow: auto; } 
+.editor { display: flex; width: 100%; max-width: 75vw; min-height: 360px; border-radius: 10px; overflow: hidden; } 
+.editor + .editor {margin-top: 24px;}
 .editor pre { flex: 1 0 0; margin: 0; padding: 0; } 
-.editor .preview { flex: 1 0 0; background: #fff; padding: 20px; color: #000;} 
-
-h1.doc_title {
-  margin-bottom: 20px;
-  font-size: 32px;
+.editor pre + pre {
+  background: #333;
 }
-h2.doc_title {
-  font-size: 20px;
-  margin-bottom: 24px;
-  font-weight: 500;
-}
+.editor .preview { flex: 1 0 0; background: #fff; padding: 20px; color: #000; } 
 
-p.doc_desc {
-  font-size: 16px;
-  font-weight: 400;
-  color: #ddd;
+h1.doc_title { font-size: 32px; } 
+h2.doc_title { font-size: 24px; margin-bottom: 20px; font-weight: 500;} 
+
+p.doc_desc { font-size: 16px; font-weight: 400; color: #ddd; margin-bottom: 24px;} 
+
+p.doc_desc span {
+  display: block;
+  margin: 10px 0;
 }
