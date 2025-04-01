@@ -67,6 +67,89 @@ This renders the following:
 </script>
 ```
 
+## 🛠 Usage Example
+### 📦 Counter Component
+```js
+  const Counter = () => {
+    const CounterButton = Dom.button;
+    let count = 0;
+
+    CounterButton.set({
+      text: `Count: ${count}`,
+      on: {
+        click : () => {
+          count ++;
+          CounterButton.text(`Count: ${count}`);
+        }
+      }
+    })
+    return CounterButton;
+  }
+```
+
+Here’s another way you can use it.
+
+```js
+  const Counter = () => {
+    const [count, setCount] = Dom.state(0);
+    const CounterButton = Dom.button;
+    Dom.effect(() => {
+      CounterButton.text(`Count: ${count()}`);
+    }, [count])
+
+    return CounterButton.set({
+      on: {
+        click: () => setCount(count() + 1)
+      }
+    })
+  }
+```
+
+### 📦 Todo Component
+```js
+  const Todo = () => {
+    const TodoContainer = Dom.div,
+          ListWrapper = Dom.ul,
+          InputWrapper = Dom.form,
+          Input = Dom.input,
+          SubmitButton = Dom.button;
+    
+    const ListItme = (text) => {
+      return Dom.li.set({ text });
+    }
+
+    InputWrapper.set({
+      on: {
+        submit: (e) => {
+          e.preventDefault();
+          if(Input.el.value !== ''){
+            ListWrapper.append(ListItme(Input.el.value));
+            Input.el.value = '';
+          }
+        }
+      },
+      children: [
+        Input.set({ 
+          type: 'text', 
+          attr: {placeholder: 'write your todo'} 
+        }),
+        SubmitButton.set({ 
+          type: 'submit', 
+          text: 'Submit' 
+        })
+      ]
+    })
+
+    TodoContainer.set({
+      children : [
+        ListWrapper,
+        InputWrapper
+      ]
+    })
+
+    return TodoContainer;
+  }
+```
 
 ## 🔗 Documentation & Demo
 - <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
