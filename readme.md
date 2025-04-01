@@ -9,6 +9,13 @@
 
 ---
 
+## ⭐ Support This Project
+
+If you find DomCraft helpful, please give it a ⭐️  
+It helps others discover this project and motivates continued development!
+
+---
+
 ## 🚀 Features
 - Ultra-lightweight (less than 2KB gzipped)
 - Fully declarative DOM creation
@@ -69,13 +76,6 @@ This renders the following:
 
 ## 🔗 Documentation & Demo
 - <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
-
----
-
-## ⭐ Support This Project
-
-If you find DomCraft helpful, please give it a ⭐️  
-It helps others discover this project and motivates continued development!
 
 ---
 
