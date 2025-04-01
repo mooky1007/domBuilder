@@ -15,9 +15,6 @@
 - Supports ESM, UMD
 - No Dependencies
 
-### 🛠 Built With
-  ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
-
 ---
 
 ## 📦 Installation
