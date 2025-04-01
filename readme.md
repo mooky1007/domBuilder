@@ -71,6 +71,11 @@ This code will render:
 </script>
 ```
 
+
+## 🔗 Documentation & Demo
+- <a href="https://mooky1007.github.io/domBuilder/docs" target="_blank" rel="noopener noreferrer">Docs & Demo</a>
+
+
 ## 🛠 Usage Example
 ### 📦 Counter Component
 ```js
@@ -154,10 +159,6 @@ Here’s another way you can use it.
     return TodoContainer;
   }
 ```
-
-## 🔗 Documentation & Demo
-- <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
-
 
 ## 📜 License
 MIT License © 2025 [mooky1007]
