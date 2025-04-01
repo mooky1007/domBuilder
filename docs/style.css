@@ -34,5 +34,5 @@ p.doc_desc span { display: block; margin: 10px 0; }
 
 @media screen and (max-width: 768px) { aside { display: none; } 
  body section { max-width: 100%; } 
- .editor { flex-direction: column; max-width: 100%; min-height: 1200px;} 
+ .editor { flex-direction: column; max-width: 100%; min-height: 1200px !important;} 
  }
