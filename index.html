@@ -23,7 +23,7 @@
       id: 'root',
       style: {
         width: '100vw',
-        minHeight: '300vh',
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -236,20 +236,6 @@
       })
     }
 
-    const Counter = () => {
-      const [count, setCount] = Dom.state(0);
-      const button = Dom.button
-      Dom.effect(() => {
-        button.text(`클릭: ${count()}`)
-      }, [count])
-      
-      return button.set({
-        on: {
-          click: () => setCount(count() + 1)
-        }
-      });
-    };
-
     ROOT.replace(Dom.div.set({
       style: {
         display: 'flex',
@@ -259,7 +245,7 @@
         flexWrap: 'wrap'
       },
       children: [
-        Counter()
+        TodoContent
       ]
     }));
 

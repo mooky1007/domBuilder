@@ -6,14 +6,15 @@
 
 > ✨ A lightweight, declarative UI builder for Vanilla JavaScript.
 > 
-> Build DOM elements, attach styles, add animations, and handle transitions — all in a clean, chainable API.
+> Build DOM elements, attach styles, add animations, and handle transitions.
 
 ---
 
 ## 🚀 Features
 - Ultra-lightweight (less than 2KB gzipped)
 - Fully declarative DOM creation
-- Supports ESM, UMD, and automatic CDN usage
+- Supports ESM, UMD
+- No Dependencies
 
 ---
 
@@ -33,37 +34,41 @@ Or use via CDN:
 ```js
 import { Dom } from 'dom_craft';
 
-Dom.injectCss(`
-  body { background: #fafafa; width: 100vw; height: 100vh; position: relative;}
-  .card { position:absolute; top:50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: white; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-`);
-
-const fadeIn = {
-  keyframe: [
-    { opacity: 0, transform: 'translate(-50%, -50%) scale(3)' }, 
-    { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
-  ],
-  options: { duration: 750, fill: 'both' }
-};
-
-const card = Dom.div.set({
-  class: 'card',
-  introAnimation: fadeIn,
+Dom.div.set({
+  class: 'wrapper',
   children: [
-    Dom.h1.set('Hello, DomCraft!'),
-    Dom.p.set('Lightweight, declarative, animated DOM builder.')
+    Dom.h1.set({
+      text: 'Hello Dom Craft!',
+      on: {
+        click: function({
+          window.alert('hello!');
+        })
+      }
+    })
   ]
-});
+})
+```
+same this
 
-Dom.body.set({ children: [card] });
+```html
+<div class="wrapper">
+  <h1>Hello Dom Craft!</h1>
+</div>
+
+<script>
+  const h1 = document.querySelector('h1')
+  h1.addEventListener('click', function{
+    window.alert('hello!');
+  })
+</script>
 ```
 
----
-<!-- 
-## 🔗 Documentation & Demo
-- [📚 Full Documentation](#) *(작성 후 링크 연결)*
-- [🎮 Live Demo](#) *(배포 후 GitHub Pages 링크 추가)*
 
+---
+
+## 🔗 Documentation & Demo
+- [Live Demo](https://mooky1007.github.io/domBuilder/)
+<!-- 
 ---
 
 ## 🛠 Development / Build
@@ -78,7 +83,7 @@ npm run build
 | ESM     | dist/dom_craft.esm.js             |
 | Types   | dist/dom_craft.d.ts               |
 
---- -->
+---  -->
 
 ## 📜 License
 MIT License © 2025 [mooky1007]
