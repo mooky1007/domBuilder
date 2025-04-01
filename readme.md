@@ -34,8 +34,7 @@ Or use via CDN:
 ## 🛠 Basic Usage Example
 ```js
 import { Dom } from 'dom_craft';
-//When using a CDN, 
-//the DOM can be accessed directly without additional setup.
+// Using CDN? Dom is globally available. No import needed.
 
 Dom.div.set({
   class: 'wrapper',
@@ -61,7 +60,7 @@ This renders the following:
 
 <script>
   const h1 = document.querySelector('h1')
-  h1.addEventListener('click', function{
+  h1.addEventListener('click', function(){
     window.alert('hello!');
   })
 </script>
