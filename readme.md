@@ -51,7 +51,7 @@ Dom.div.set({
 })
 ```
 
-This renders the following:
+This code will render:
 
 ```html
 <div class="wrapper">
