@@ -4,7 +4,7 @@
 ![license](https://img.shields.io/npm/l/dom_craft.svg)
 ![size](https://img.shields.io/bundlephobia/minzip/dom_craft)
 
-> ✨ A lightweight, declarative UI builder for Vanilla JavaScript.
+> ✨ A lightweight, declarative UI builder for Vanilla JavaScript.  
 > Build DOM elements, attach styles, add animations, and handle transitions.
 
 ---
@@ -14,6 +14,9 @@
 - Fully declarative DOM creation
 - Supports ESM, UMD
 - No Dependencies
+
+### 🛠 Built With
+  ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
 
 ---
 
@@ -49,7 +52,7 @@ Dom.div.set({
 })
 ```
 
-The result is as follows
+This renders the following:
 
 ```html
 <div class="wrapper">
@@ -67,7 +70,7 @@ The result is as follows
 ---
 
 ## 🔗 Documentation & Demo
-- <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+- <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
 <!-- 
 ---
 
