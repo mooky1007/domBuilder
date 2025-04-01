@@ -32,7 +32,8 @@ Or use via CDN:
 ## 🛠 Basic Usage Example
 ```js
 import { Dom } from 'dom_craft';
-//When using a CDN, the DOM can be accessed directly without additional setup.
+//When using a CDN, 
+//the DOM can be accessed directly without additional setup.
 
 Dom.div.set({
   class: 'wrapper',
