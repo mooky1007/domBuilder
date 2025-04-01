@@ -25,6 +25,10 @@ It helps others discover this project and motivates continued development!
 - No Dependencies
 
 
+## 🔗 Documentation & Demo
+- <a href="https://mooky1007.github.io/domBuilder/docs" target="_blank" rel="noopener noreferrer">Docs & Demo</a>
+
+
 ## 📦 Installation
 ```bash
 npm install dom_craft
@@ -70,11 +74,6 @@ This code will render:
   })
 </script>
 ```
-
-
-## 🔗 Documentation & Demo
-- <a href="https://mooky1007.github.io/domBuilder/docs" target="_blank" rel="noopener noreferrer">Docs & Demo</a>
-
 
 ## 🛠 Usage Example
 ### 📦 Counter Component
