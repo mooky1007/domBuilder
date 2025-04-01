@@ -5,7 +5,6 @@
 ![size](https://img.shields.io/bundlephobia/minzip/dom_craft)
 
 > ✨ A lightweight, declarative UI builder for Vanilla JavaScript.
-> 
 > Build DOM elements, attach styles, add animations, and handle transitions.
 
 ---
@@ -33,6 +32,7 @@ Or use via CDN:
 ## 🛠 Basic Usage Example
 ```js
 import { Dom } from 'dom_craft';
+//When using a CDN, the DOM can be accessed directly without additional setup.
 
 Dom.div.set({
   class: 'wrapper',
@@ -48,7 +48,8 @@ Dom.div.set({
   ]
 })
 ```
-same this
+
+The result is as follows
 
 ```html
 <div class="wrapper">
@@ -63,11 +64,10 @@ same this
 </script>
 ```
 
-
 ---
 
 ## 🔗 Documentation & Demo
-- [Live Demo](https://mooky1007.github.io/domBuilder/)
+- <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Live Demo</a>
 <!-- 
 ---
 
