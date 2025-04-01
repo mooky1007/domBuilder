@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>DomCraft Live Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="inner">
+    <h1 class="doc_title">Quick Start</h1>
+    <section>
+      <h2 class="doc_title">Create and nest components</h2>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    const H1 = Dom.h1.set({text: 'Hello World'});
+    Dom.body.append(H1);
+
+    // -------------------------------------------------
+
+    const DIV = Dom.div;
+    const H1 = Dom.h1;
+    const SPAN = Dom.span;
+    
+    DIV.set({ class: "title" })
+    H1.set({ text: 'Hello ' });
+    SPAN.set({ style: { color: 'red' }, text: 'World' })
+
+    DIV.set({
+      children: [
+        H1.set({
+          children: [
+            SPAN
+          ]
+        })
+      ]
+    })
+
+    Dom.body.append(H1);
+        </code>
+      </pre>
+        <div class="preview">
+          <h1>Hello World</h1>
+          <div class="title">
+            <h1>Hello <span style="color: red;">World</span></h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="doc_desc">It can also be used as a functional component.</p>
+
+    <section>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+    const H1 = (text) => {
+      return Dom.h1.set({text});
+    }
+
+    Dom.body.append([
+      H1('Hello'),
+      H1('Dom'),
+      H1('Craft')
+    ])
+        </code>
+      </pre>
+        <div class="preview">
+          <h1>Hello</h1>
+          <h1>Dom</h1>
+          <h1>Craft</h1>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="doc_title">Adding inline-styles & class and id</h2>
+      <div class="editor">
+        <pre>
+        <code class="language-js">
+      const Box = Dom.div.set({
+        id: 'first_box',
+        class: 'my_box',
+        style: {
+          width: '100px',
+          height: '100px',
+          border: '1px solid #000'
+        }
+      })
+
+      Dom.body.append(Box)
+        </code>
+      </pre>
+        <div class="preview">
+          <div id="first_box" class="my_box" style="width: 100px; height: 100px; border: 1px solid rgb(0, 0, 0);"></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="doc_desc">You can also inject styles directly into the head tag.</p>
+
+    <section>
+      <div class="editor">
+        <pre>
+          <code class="language-js">
+      Dom.injectCss(`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        .box {
+          width: 100px;
+          height: 100px;
+          border: 1px solid #000;
+        }
+      `)
+          </code>
+        </pre>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="doc_title">Render Data</h2>
+      <div class="editor">
+        <pre>
+          <code class="language-js">
+      const data = [
+        {title: 'list-item1'},
+        {title: 'list-item2'},
+        {title: 'list-item3'},
+        {title: 'list-item4'},
+        {title: 'list-item5'},
+      ];
+
+      const Li = (data) => Dom.li.set({text: data.title})
+
+      Dom.body.append(
+        Dom.ul.set({
+          style: { marginLeft: '20px' },
+          children: data.map(el => Li(el))
+        })
+      )
+          </code>
+        </pre>
+        <div class="preview">
+          <ul style="margin-left: 20px;">
+            <li>list-item1</li>
+            <li>list-item2</li>
+            <li>list-item3</li>
+            <li>list-item4</li>
+            <li>list-item5</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="doc_title">Event Binding & State And Effect</h2>
+      <div class="editor">
+        <pre>
+          <code class="language-js">
+      const Counter = () => {
+        const CounterButton = Dom.button;
+        const [count, setCount] = Dom.state(0);
+        Dom.effect(() => {
+          CounterButton.text(`counted ${count()}`);
+        }, [count])
+
+        return CounterButton.set({
+          on: {
+            click: () => setCount(count() + 1)
+          }
+        });
+      }
+
+      Dom.body.append([
+        Counter(),
+        Counter(),
+        Counter()
+      ]);
+          </code>
+        </pre>
+        <div class="preview" id="counter_sample"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="editor">
+        <pre>
+          <code class="language-js">
+      const CountDown = () => {
+        const CountDown = Dom.span;
+        const [count, setCount] = Dom.state(0);
+        Dom.effect(() => {
+          CountDown.text(`counted ${count()}`);
+        }, [count])
+
+        setInterval(() => setCount(count() + 1), 1000)
+
+        return CountDown;
+      }
+
+      Dom.body.append(CountDown());
+          </code>
+        </pre>
+        <div class="preview" id="counter_sample2"></div>
+      </div>
+    </section>
+  </div>
+  <script>
+    const Counter = () => {
+      const CounterButton = Dom.button;
+      const [count, setCount] = Dom.state(0);
+      Dom.effect(() => {
+        CounterButton.text(`counted ${count()}`);
+      }, [count])
+
+      return CounterButton.set({
+        style: {
+          cursor: 'pointer',
+          padding: '5px'
+        },
+        on: {
+          click: () => setCount(count() + 1)
+        }
+      });
+    }
+
+    Dom.qs('#counter_sample').set({
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        gap: '10px'
+      },
+      children: [
+        Counter(),
+        Counter(),
+        Counter()
+      ]
+    });
+
+    const CountDown = () => {
+      const CountDown = Dom.span;
+      const [count, setCount] = Dom.state(0);
+      Dom.effect(() => {
+        CountDown.text(`timer: ${count()}s`);
+      }, [count])
+
+      setInterval(() => {
+        setCount(count() + 1);
+      }, 1000)
+
+      return CountDown;
+    }
+
+    Dom.qs('#counter_sample2').append([
+      CountDown(),
+    ]);
+  </script>
+</body>
+
+</html>

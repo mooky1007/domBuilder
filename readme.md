@@ -7,6 +7,11 @@
 > Lightweight, declarative UI builder for Vanilla JavaScript.  
 > Build DOM elements, attach styles, add animations, and handle transitions.
 
+> 🔧 Vanilla JS DOM builder  
+> 🧩 Component-based UI  
+> 🎬 CSS Animation support  
+> ⚡ Lightweight (2KB)  
+
 #### ⭐ Support This Project
 
 If you find DomCraft helpful, please give it a ⭐️  
@@ -156,3 +161,7 @@ Here’s another way you can use it.
 
 ## 📜 License
 MIT License © 2025 [mooky1007]
+
+<!--
+Keywords: vanilla js dom library, javascript ui builder, declarative dom js, lightweight dom framework, javascript component framework, no-dependency js library
+-->
