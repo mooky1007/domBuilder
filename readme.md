@@ -4,7 +4,7 @@
 ![license](https://img.shields.io/npm/l/dom_craft.svg)
 ![size](https://img.shields.io/bundlephobia/minzip/dom_craft)
 
-> ✨ A lightweight, declarative UI builder for Vanilla JavaScript.  
+> Lightweight, declarative UI builder for Vanilla JavaScript.  
 > Build DOM elements, attach styles, add animations, and handle transitions.
 
 ---
@@ -69,22 +69,15 @@ This renders the following:
 
 ## 🔗 Documentation & Demo
 - <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
-<!-- 
+
 ---
 
-## 🛠 Development / Build
-```bash
-npm run build
-```
+## ⭐ Support This Project
 
-### Build outputs:
-| Format  | Path                               |
-|---------|------------------------------------|
-| UMD     | dist/dom_craft.umd.js             |
-| ESM     | dist/dom_craft.esm.js             |
-| Types   | dist/dom_craft.d.ts               |
+If you find DomCraft helpful, please give it a ⭐️  
+It helps others discover this project and motivates continued development!
 
----  -->
+---
 
 ## 📜 License
 MIT License © 2025 [mooky1007]
