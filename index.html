@@ -17,11 +17,13 @@
 
 <body>
   <script>
+    const inView = Dom.inView(1);
+
     const ROOT = Dom.div.set({
       id: 'root',
       style: {
         width: '100vw',
-        minHeight: '100vh',
+        minHeight: '300vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -208,12 +210,45 @@
         TodoForm.children([
           TodoInput,
           TodoAddButton.children([
-            TodoCount.set(`#${TodoList.count + 1}`)
+            TodoCount.set(`#${TodoList.count + 1}`),
           ])
         ])
       ])
       return TodoContainer;
     }
+
+    const TodoContent = Todo('My Todo');
+    console.log(TodoContent)
+
+    TodoContent.in = () => {
+      console.log('in')
+      TodoContent.animate(Dom.presets.ani.fadeIn, {
+        duration: 300,
+        fill: 'forwards'
+      })
+    }
+
+    TodoContent.out = () => {
+      console.log('out')
+      TodoContent.animate(Dom.presets.ani.fadeOut, {
+        duration: 300,
+        fill: 'forwards'
+      })
+    }
+
+    const Counter = () => {
+      const [count, setCount] = Dom.state(0);
+      const button = Dom.button
+      Dom.effect(() => {
+        button.text(`클릭: ${count()}`)
+      }, [count])
+      
+      return button.set({
+        on: {
+          click: () => setCount(count() + 1)
+        }
+      });
+    };
 
     ROOT.replace(Dom.div.set({
       style: {
@@ -224,10 +259,13 @@
         flexWrap: 'wrap'
       },
       children: [
-        Todo('My Todo'),
+        Counter()
       ]
     }));
+
     Dom.body.prepend(ROOT);
+
+    inView.watch(TodoContent)
   </script>
 </body>
 

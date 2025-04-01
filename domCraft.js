@@ -22,7 +22,28 @@ export class Dom {
     static get body() {
         return new Element(document.querySelector('body'));
     }
+    static inView(threshold) {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    if (entry.target.in) entry.target.in();
+                } else {
+                    if (entry.target.out) entry.target.out();
+                }
+            },
+            {
+                threshold: threshold || 0.2,
+            }
+        );
 
+        observer.watch = (El) => {
+            if (El.in) El.el.in = El.in;
+            if (El.out) El.el.out = El.out;
+            observer.observe(El.el);
+        };
+
+        return observer;
+    }
     static state(intial) {
         let _value = intial;
         const listeners = new Set();

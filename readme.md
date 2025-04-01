@@ -1,24 +1,18 @@
-# 📖 dom_craft - Lightweight Declarative DOM Builder
+# 📖 Dom Craft
 
 ![npm version](https://img.shields.io/npm/v/dom_craft.svg)
 ![license](https://img.shields.io/npm/l/dom_craft.svg)
 ![size](https://img.shields.io/bundlephobia/minzip/dom_craft)
 
-> ✨ A lightweight, declarative UI builder with native animations for Vanilla JavaScript.
+> ✨ A lightweight, declarative UI builder for Vanilla JavaScript.
 > 
 > Build DOM elements, attach styles, add animations, and handle transitions — all in a clean, chainable API.
 
 ---
 
 ## 🚀 Features
-- Ultra-lightweight (less than 5KB gzipped)
+- Ultra-lightweight (less than 2KB gzipped)
 - Fully declarative DOM creation
-- Supports `introAnimation` & `outroAnimation` for smooth transitions
-- Built-in `destroy()`, `replaceChildren()`, `addChildren()` helpers
-- `ref` function for dynamic element capture
-- Inline `on()` event bindings with `animationEnd` hooks
-- Dynamic CSS injection via `Dom.injectCss()`
-- Built-in `Dom.delay()` Promise-based timeout utility
 - Supports ESM, UMD, and automatic CDN usage
 
 ---
@@ -87,6 +81,6 @@ npm run build
 --- -->
 
 ## 📜 License
-MIT License © 2024 [mooky1007]
+MIT License © 2025 [mooky1007]
 
 ---
