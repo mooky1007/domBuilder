@@ -12,7 +12,6 @@
 If you find DomCraft helpful, please give it a ⭐️  
 It helps others discover this project and motivates continued development!
 
----
 
 ## 🚀 Features
 - Ultra-lightweight (less than 2KB gzipped)
@@ -20,7 +19,6 @@ It helps others discover this project and motivates continued development!
 - Supports ESM, UMD
 - No Dependencies
 
----
 
 ## 📦 Installation
 ```bash
@@ -32,7 +30,6 @@ Or use via CDN:
 <script src="https://cdn.jsdelivr.net/npm/dom_craft@latest/dist/dom_craft.umd.min.js"></script>
 ```
 
----
 
 ## 🛠 Basic Usage Example
 ```js
@@ -70,14 +67,10 @@ This renders the following:
 </script>
 ```
 
----
 
 ## 🔗 Documentation & Demo
 - <a href="https://mooky1007.github.io/domBuilder/" target="_blank" rel="noopener noreferrer">Demo</a>
 
----
 
 ## 📜 License
 MIT License © 2025 [mooky1007]
-
----
