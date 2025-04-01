@@ -7,9 +7,7 @@
 > Lightweight, declarative UI builder for Vanilla JavaScript.  
 > Build DOM elements, attach styles, add animations, and handle transitions.
 
----
-
-## ⭐ Support This Project
+#### ⭐ Support This Project
 
 If you find DomCraft helpful, please give it a ⭐️  
 It helps others discover this project and motivates continued development!
