@@ -24,12 +24,12 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mooky1007/domBuilder.git"
+        "url": "git+https://github.com/mooky1007/domCraft.git"
     },
     "bugs": {
-        "url": "https://github.com/mooky1007/domBuilder/issues"
+        "url": "https://github.com/mooky1007/domCraft/issues"
     },
-    "homepage": "https://github.com/mooky1007/domBuilder#readme",
+    "homepage": "https://github.com/mooky1007/domCraft#readme",
     "files": [
         "dist",
         "README.md"

@@ -73,7 +73,7 @@ This code will render:
 
 
 ## 🔗 Documentation & Demo
-- <a href="https://mooky1007.github.io/domBuilder/docs" target="_blank" rel="noopener noreferrer">Docs & Demo</a>
+- <a href="https://mooky1007.github.io/domCraft/docs" target="_blank" rel="noopener noreferrer">Docs & Demo</a>
 
 
 ## 🛠 Usage Example
