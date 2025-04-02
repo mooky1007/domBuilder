@@ -36,6 +36,7 @@
   <aside>
     <h2>🛠️ Dom Craft</h2>
     <ul>
+      <li class="list_title"><a href="#qs">Quick Start</a></li>
       <li><a href="#Create_components">Create components</a></li>
       <li><a href="#Nest_components">Nested components</a></li>
       <li><a href="#Set_components">Set components</a></li>
@@ -47,9 +48,13 @@
       <li><a href="#Inject_css">Inject CSS</a></li>
       <li><a href="#Custom_component">Custom Components</a></li>
     </ul>
+    <ul>
+      <li class="list_title"><a href="#ex">Example Code</a></li>
+      <li><a href="#skeleton_UI">Skeleton UI</a>
+    </ul>
   </aside>
   <div class="inner">
-    <h1 class="doc_title">Quick Start</h1>
+    <h1 class="doc_title" id="qs">Quick Start</h1>
 
     <section id="Create_components">
       <h2 class="doc_title">Create components</h2>
@@ -603,7 +608,7 @@
     observer.watch(target);
         </code>
         </pre>
-        <div class="preview" id="sample06" style="overflow: auto;">
+        <div class="preview" id="sample06" style="overflow: auto; flex-basis: 0; min-height: 240px;;">
           Scroll Down 👇
         </div>
 
@@ -790,6 +795,278 @@
             return wrapper;
           };
           Dom.qs('#sample08').append(Todo())
+        </script>
+      </div>
+    </section>
+
+    <h1 class="doc_title" id="ex">Example Code</h1>
+
+    <section id="skeleton_UI">
+      <h2 class="doc_title">Skeleton UI</h2>
+      <p class="doc_desc">
+        This example demonstrates how to create a skeleton loading interface using <code>Dom.state()</code> and <code>Dom.effect()</code>.<br />
+        Each item initially renders a placeholder with a pulsing animation, simulating a loading state.<br />
+        After a short delay, the actual content is loaded asynchronously and the skeleton is replaced with real data.<br />
+        <br />
+        This pattern is ideal for improving perceived performance in situations where data fetching takes time.
+      </p>
+      <p class="doc_desc" style="color:#baffd1;">This is an experimental component with ongoing improvements and regular updates.</p>
+      <div class="editor" style="max-height: 500px;">
+        <pre>
+        <code class="language-js">
+    Dom.injectCss(`
+      .ui-item {
+        width: 220px;
+        background: #fff;
+        border-radius: 5px;
+        padding: 20px;
+      }
+        
+      .ui-item + .ui-item {
+        margin-top: 10px;
+      }
+
+      .ui-title {
+        font-size: 16px;
+        color: #222;
+        margin-bottom: 10px;
+        height: 1em;
+      }
+
+      .ui-desc {
+        font-size: 13px;
+        color: #666;
+        height: 1em;
+      }
+
+      @keyframes pulse {
+        0% { opacity: 1 }
+        50% { opacity: 0.6 }
+        100% { opacity: 1 }
+      }
+
+      .pulse {
+        animation: pulse 0.5s infinite;
+        width: 100%;
+        background: #ddd;
+      }
+    `)
+
+    const [datas, setDatas] = Dom.state([]);
+    Dom.effect(() => {
+      datas().forEach(([data, setData]) => {
+        setData(data());
+      })
+    }, [datas])
+
+    const ListItem = (key) => {
+      const Item = Dom.div.class('ui-item');
+      const Title = Dom.p.class('ui-title pulse');
+      const Desc = Dom.p.class('ui-desc pulse');
+
+      const [data, setData] = Dom.state(null);
+      setDatas([...datas(), [data, setData]])
+      Dom.effect(() => {
+        if (data()) {
+          Title.set({
+            html: data().title
+          });
+          Desc.set({
+            html: data().desc
+          });
+          Title.removeClass('pulse');
+          Desc.removeClass('pulse');
+        } else {
+          Title.set({
+            html: ''
+          });
+          Desc.set({
+            html: ''
+          });
+          Title.class('pulse');
+          Desc.class('pulse');
+        }
+      }, [data])
+
+      Item.set({
+        children: [
+          Title,
+          Desc
+        ]
+      })
+
+      const getData = async (key) => {
+        await Dom.delay(600 + Math.random() * 300);
+        setData({
+          title: `item0${key}`,
+          desc: `hello, this is item0${key}`
+        })
+      }
+
+      getData(key);
+
+      return Item;
+    }
+
+    const ReloadButton = Dom.button.set({
+      text: 'Reload',
+      style: {
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        padding: '5px'
+      },
+      on: {
+        click: () => {
+          Dom.qs('#sample09').replace([
+            ListItem(1),
+            ListItem(2),
+            ListItem(3),
+            ListItem(4),
+            ListItem(5),
+            ReloadButton,
+          ])
+        }
+      }
+    })
+
+    Dom.qs('#sample09').append([
+      ListItem(1),
+      ListItem(2),
+      ListItem(3),
+      ListItem(4),
+      ListItem(5),
+      ReloadButton,
+    ])
+        </code>
+        </pre>
+        <div class="preview" id="sample09" style="background: #eee;"></div>
+
+        <script>
+          Dom.injectCss(`
+            .ui-item {
+              width: 220px;
+              background: #fff;
+              border-radius: 5px;
+              padding: 20px;
+            }
+              
+            .ui-item + .ui-item {
+              margin-top: 10px;
+            }
+
+            .ui-title {
+              font-size: 16px;
+              color: #222;
+              margin-bottom: 10px;
+              height: 1em;
+            }
+
+            .ui-desc {
+              font-size: 13px;
+              color: #666;
+              height: 1em;
+            }
+
+            @keyframes pulse {
+              0% { opacity: 1 }
+              50% { opacity: 0.6 }
+              100% { opacity: 1 }
+            }
+
+            .pulse {
+              animation: pulse 0.5s infinite;
+              width: 100%;
+              background: #ddd;
+            }
+          `)
+
+          const [datas, setDatas] = Dom.state([]);
+          Dom.effect(() => {
+            datas().forEach(([data, setData]) => {
+              setData(data());
+            })
+          }, [datas])
+
+          const ListItem = (key) => {
+            const Item = Dom.div.class('ui-item');
+            const Title = Dom.p.class('ui-title pulse');
+            const Desc = Dom.p.class('ui-desc pulse');
+
+            const [data, setData] = Dom.state(null);
+            setDatas([...datas(), [data, setData]])
+            Dom.effect(() => {
+              if (data()) {
+                Title.set({
+                  html: data().title
+                });
+                Desc.set({
+                  html: data().desc
+                });
+                Title.removeClass('pulse');
+                Desc.removeClass('pulse');
+              } else {
+                Title.set({
+                  html: ''
+                });
+                Desc.set({
+                  html: ''
+                });
+                Title.class('pulse');
+                Desc.class('pulse');
+              }
+            }, [data])
+
+            Item.set({
+              children: [
+                Title,
+                Desc
+              ]
+            })
+
+            const getData = async (key) => {
+              await Dom.delay(600 + Math.random() * 300);
+              setData({
+                title: `item0${key}`,
+                desc: `hello, this is item0${key}`
+              })
+            }
+
+            getData(key);
+
+            return Item;
+          }
+
+          const ReloadButton = Dom.button.set({
+            text: 'Reload',
+            style: {
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              padding: '5px'
+            },
+            on: {
+              click: () => {
+                Dom.qs('#sample09').replace([
+                  ListItem(1),
+                  ListItem(2),
+                  ListItem(3),
+                  ListItem(4),
+                  ListItem(5),
+                  ReloadButton,
+                ])
+              }
+            }
+          })
+
+          Dom.qs('#sample09').append([
+            ListItem(1),
+            ListItem(2),
+            ListItem(3),
+            ListItem(4),
+            ListItem(5),
+            ReloadButton,
+          ])
         </script>
       </div>
     </section>
